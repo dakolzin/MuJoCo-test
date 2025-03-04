@@ -9,7 +9,7 @@
         dyntype="none" gaintype="fixed" 
         biastype="affine" dynprm="1 0 0" 
         gainprm="10 0 0" biasprm="0 -10 -0.1"
-        forcerange="-5 5" ctrlrange="0 0.943"
+        forcerange="-10 10" ctrlrange="0 0.943"
       />
 
       <default class="visual">

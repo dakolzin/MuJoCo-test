@@ -1,3 +1,5 @@
+# aubo_i5_env.py
+
 import time
 import numpy as np
 from dm_control import mjcf
@@ -9,15 +11,23 @@ from manipulator_mujoco.robots import AuboI5, AG95
 from manipulator_mujoco.objects import RealsenseD435i, VASE
 from manipulator_mujoco.props import Primitive
 from manipulator_mujoco.mocaps import Target
-from manipulator_mujoco.controllers import OperationalSpaceController, JointEffortController
+from manipulator_mujoco.controllers import OperationalSpaceController
 
 class AuboI5Env(gym.Env):
-    metadata = {"render_modes": ["human", "rgb_array"], "render_fps": None}
+
+    metadata = {
+        "render_modes": ["human", "rgb_array"],
+        "render_fps": None,
+    }
 
     def __init__(self, render_mode=None):
-        # Расширяем пространство действий: 6 для манипулятора и 1 для схвата
-        self.observation_space = spaces.Box(low=-np.inf, high=np.inf, shape=(6,), dtype=np.float64)
-        self.action_space = spaces.Box(low=-0.1, high=0.1, shape=(7,), dtype=np.float64)
+        # Задаем observation и action пространства
+        self.observation_space = spaces.Box(
+            low=-np.inf, high=np.inf, shape=(6,), dtype=np.float64
+        )
+        self.action_space = spaces.Box(
+            low=-0.1, high=0.1, shape=(6,), dtype=np.float64
+        )
 
         assert render_mode is None or render_mode in self.metadata["render_modes"]
         self._render_mode = render_mode
@@ -25,41 +35,39 @@ class AuboI5Env(gym.Env):
         ############################
         # Создание MJCF модели
         ############################
+        # Создаем арену (например, с шахматным полом)
         self._arena = StandardArena()
+
+        # Создаем target (mocap) – цель, за которой будет стремиться двигаться манипулятор
         self._target = Target(self._arena.mjcf_model)
 
+        # Создаем манипулятор AuboI5
         self._arm = AuboI5()
+        
+        # Создаем схват AG95
         self._gripper = AG95()
 
         # Прикрепляем схват к манипулятору
         self._arm.attach_tool(self._gripper.mjcf_model, pos=[0, 0, 0], quat=[0, 0, 0, 1])
 
-        # Создаем небольшой ящик для манипуляции
-        self._box = Primitive(
-            type="box",
-            size=[0.02, 0.02, 0.02],
-            pos=[0, 0, 0.02],
-            rgba=[1, 0, 0, 1],
-            friction=[1, 0.3, 0.0001]
-        )
-
+        # Прикрепляем манипулятор к арене
         self._arena.attach(self._arm.mjcf_model, pos=[0, 0, 0])
-        self._arena.attach_free(self._box.mjcf_model, pos=[0.5, 0, 0])
 
-        # Добавляем камеру
+        # ===== Добавляем камеру =====
         self._camera = RealsenseD435i()
-        self._arena.attach(
-            self._camera.mjcf_model,
-            pos=[0, 0.3, 0.26],
-            quat=[0.44499672, 0.54952518, 0.54952518, 0.44499672]
-        )
-        self._vase = VASE()
-        self._arena.attach_free(self._vase.mjcf_model, pos=[0.46, 0.3, 0.05])
+        self._arena.attach(self._camera.mjcf_model, pos=[0, 0.3, 0.24], quat=[0.44499672, 0.54952518, 0.54952518, 0.44499672])
+        # ============================
 
-        # Физическая модель из MJCF модели арены
+        # ===== Добавляем объект =====
+        self._vase = VASE()
+        self._arena.attach_free(self._vase.mjcf_model, pos=[0.47, 0.25, 0], quat=[0.70710678, 0.0, 0.0, 0.70710678])
+        # ============================
+
+
+        # Генерируем физическую модель из MJCF модели арены
         self._physics = mjcf.Physics.from_mjcf_model(self._arena.mjcf_model)
 
-        # Контроллер для манипулятора (управляет движением конечного эффектора)
+        # Настраиваем Operational Space Controller для манипулятора
         self._controller = OperationalSpaceController(
             physics=self._physics,
             joints=self._arm.joints,
@@ -73,20 +81,13 @@ class AuboI5Env(gym.Env):
             vmax_abg=2.0,
         )
 
-        # Контроллер для схвата. Предполагаем, что схват имеет один сустав.
-        self._gripper_controller = JointEffortController(
-            physics=self._physics,
-            joints=[self._gripper.joint],  # Передаем joint в виде списка
-            min_effort=-50.0,
-            max_effort=50.0,
-        )
-
+        # Настройки для визуализации и синхронизации времени
         self._timestep = self._physics.model.opt.timestep
         self._viewer = None
         self._step_start = None
 
     def _get_obs(self) -> np.ndarray:
-        # Собираем наблюдения. Можно добавить состояние схвата при необходимости.
+        # Здесь можно собрать наблюдения (например, положение и скорость суставов)
         return np.zeros(6)
 
     def _get_info(self) -> dict:
@@ -94,35 +95,26 @@ class AuboI5Env(gym.Env):
 
     def reset(self, seed=None, options=None) -> tuple:
         super().reset(seed=seed)
+        # Сброс физики
         with self._physics.reset_context():
-            # Сброс позиций манипулятора
+            # Задаем начальное положение манипулятора
             self._physics.bind(self._arm.joints).qpos = [0, 0, 1.5707, 0, 1.5707, 0]
-            # Сброс цели
+            # Задаем начальное положение цели (target)
             self._target.set_mocap_pose(self._physics, position=[0.5, 0, 0.04], quaternion=[0, 0, 0, 1])
-            # Инициализация схвата в открытом состоянии (например, позиция 0)
-            self._physics.bind([self._gripper.joint]).qpos = [0.0]
         observation = self._get_obs()
         info = self._get_info()
         return observation, info
 
     def step(self, action: np.ndarray) -> tuple:
-        # Первые 6 значений – для манипулятора, седьмое – для схвата.
-        arm_action = action[:6]    # Можно использовать для изменения target_pose
-        gripper_action = action[6] # Управляющее усилие для схвата
-
-        # Управление манипулятором через операционное пространство.
+        # Получаем текущую позу target
         target_pose = self._target.get_mocap_pose(self._physics)
+        # Выполняем управление, стремясь привести манипулятор к target_pose
         self._controller.run(target_pose)
-
-        # Управление схватом через отдельный JointEffortController.
-        self._gripper_controller.run(np.array([gripper_action]))
-
         # Шаг симуляции
         self._physics.step()
-
+        # Визуализация
         if self._render_mode == "human":
             self._render_frame()
-
         observation = self._get_obs()
         reward = 0
         terminated = False
@@ -136,7 +128,7 @@ class AuboI5Env(gym.Env):
     def _render_frame(self) -> None:
         if self._viewer is None and self._render_mode == "human":
             self._viewer = mujoco.viewer.launch_passive(
-                self._physics.model.ptr, 
+                self._physics.model.ptr,
                 self._physics.data.ptr,
             )
         if self._step_start is None and self._render_mode == "human":

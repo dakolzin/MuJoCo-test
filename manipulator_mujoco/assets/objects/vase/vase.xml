@@ -1,3 +1,5 @@
+<!-- vase.xml -->
+
 <mujoco model="vase">
   <compiler meshdir="assets" />
   <visual>
@@ -10,22 +12,19 @@
         <geom type="mesh" contype="0" conaffinity="0"/>
       </default>
       <default class="collision">
-        <!-- Здесь можно задать базовые параметры для столкновений -->
         <geom type="mesh" solref="0.02 1" solimp="0.95 0.99 0.001"/>
       </default>
     </default>
   </default>
   <asset>
     <material name="vase_material" rgba="0.8 0.8 0.8 1"/>
-    <mesh name="vase_mesh" file="vase.obj" scale="1 1 1"/>
+    <mesh name="vase_mesh" file="vase.stl" scale="1 1 1"/>
   </asset>
   <worldbody>
     <light pos="0 0 2" dir="0 0 -1" directional="true"/>
     <body name="vase_body" childclass="vase" pos="0 0 0">
-      <inertial pos="0 0 -0.05" mass="0.2" diaginertia="0.005 0.005 0.001"/>
-      <!-- Визуальная геометрия -->
+      <inertial pos="0 0 -2" mass="0.5" diaginertia="0.01 0.01 0.01"/>
       <geom mesh="vase_mesh" material="vase_material" class="visual"/>
-      <!-- Collision геометрия -->
       <geom mesh="vase_mesh" material="vase_material" class="collision"/>
     </body>
   </worldbody>

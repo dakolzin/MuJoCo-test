@@ -1,79 +1,169 @@
 # Manipulator-Mujoco
 
 <p float="left">
-<img src="images/aubo_i5.gif" alt="a_bot GIF" width="49%">
-<img src="images/ur5e.gif" alt="b_bot GIF" width="49%">
+<img src="images/aubo_i5.gif" alt="a_bot GIF" width="100%">
 </p>
 
-Manipulator-Mujoco is a template repository that simplifies the setup and control of manipulators in Mujoco. It provides a generic operational space controller that can work with any robot arm. It offers a Gymnasium base environment that can be tailored for reinforcement learning tasks. This repository is built with dm_control, providing effortless configuration for different Mujoco environments.
+## Оглавление
 
-## Supported Robots
+- [Цель](#цель)
+- [Описание репозитория](#описание-репозитория)
+- [Описание эксперимента](#описание-эксперимента)
+- [Поддерживаемые роботы](#поддерживаемые-роботы)
+- [Установка](#установка)
+- [Демонстрационные примеры](#демонстрационные-примеры)
+- [Настройка собственного окружения](#настройка-собственного-окружения)
 
-Currently, the following robot arms and grippers are supported in this repository:
+## Описание репозитория
 
-### Robot Arms
+<div style="text-align: justify;">
+Manipulator-Mujoco — это шаблонный репозиторий, который упрощает настройку и управление манипуляторами в Mujoco. Он предоставляет универсальный контроллер операционного пространства, способный работать с любым манипулятор. Репозиторий включает базовое окружение Gymnasium, которое можно адаптировать под задачи обучения с подкреплением. Проект построен с использованием dm_control, что обеспечивает лёгкую конфигурацию для различных окружений Mujoco.
+</div>
+
+## Описание эксперимента
+
+- [Оглавление](#оглавление)
+
+<div style="text-align: justify;">
+Эксперимент демонстрирует полный цикл работы манипулятора в симуляции Mujoco с обменом данными через сеть. Он объединяет управление роботом, приём внешней команды и реалистичное моделирование захвата объекта. 
+</div><br />
+
+Для запуска симуляции необходимо запустить следующий скрипт:
+
+```bash
+cd demo
+
+python3 go_simulation.py
+```
+
+### Основные этапы эксперимента:
+
+1. Инициализация симуляции
+
+<div style="text-align: justify;">
+Создаётся симуляционное окружение с визуализацией, в котором настраиваются основные параметры робота (например, идентификатор привода захвата). До получения внешней команды робот выполняет случайные действия, что позволяет задать базовое поведение.
+</div><br />
+
+2. Приём внешней команды захвата
+
+<div style="text-align: justify;">
+Отдельный поток открывает TCP-сокет (на 127.0.0.1:54321) и ожидает подключения. После установления соединения симуляция получает JSON-сообщение с данными позиции и ориентации целевого объекта. Эти данные используются для обновления целевой позиции (mocap target) в симуляции.
+</div><br />
+
+3. Пошаговая логика выполнения захвата
+
+<div style="text-align: justify;">
+После получения внешней команды робот последовательно переходит через следующие этапы:
+</div> <br />
+
+I. Подход к объекту 
+<br />
+<div style="text-align: justify;">
+Цель сначала смещается по оси Z для обеспечения безопасного приближения.
+</div> <br />
+
+II. Финальное позиционирование 
+
+<div style="text-align: justify;">
+После ожидания манипулятор переводится в окончательное положение захвата, где происходит дополнительная проверка ориентации (с использованием преобразования кватерниона в матрицу вращения).
+</div> <br />
+
+III. Захват
+
+<div style="text-align: justify;">
+Запускается процесс плавного закрытия захватного устройства, что имитирует реальное действие захвата.
+</div><br />
+
+IV. Подъем объекта 
+
+После закрытия схвата робот поднимает объект, завершая цикл захвата.
+
+4. Интеграция с внешними системами
+
+<div style="text-align: justify;">
+Эксперимент разработан так, чтобы его можно было легко интегрировать с ROS2 (для трансляции TF-преобразований) и с нейронными сетями (например, GraspNet, обрабатывающей данные RealSense). Это позволяет протестировать цепочку от восприятия объекта до его захвата и подъёма.
+</div><br />
+
+<div style="text-align: justify;">
+На рисунке и гифке продемонстрирована отработка завата объекта с помощью данного репозитория.
+<p float="left">
+</div><br />
+<img src="images/scene.jpeg" alt="a_bot GIF" width="49%">
+<img src="images/test.gif" alt="b_bot GIF" width="49%">
+</p>
+
+
+## Поддерживаемые роботы
+
+- [Оглавление](#оглавление)
+
+В настоящее время в репозитории поддерживаются следующие роботизированные манипуляторы и захваты:
+
+### Манипуляторы
 1. Aubo i5
 2. UR5e
 
-### Grippers
+### Захватные устройства
 1. DH Robotics AG95
 
-## Installation
+## Установка
 
-To get started, follow these steps to install the repository:
+- [Оглавление](#оглавление)
 
-1. Clone this repository to your local machine:
+Чтобы начать работу, выполните следующие шаги для установки репозитория:
+
+1. Склонируйте репозиторий на свой компьютер:
 
    ```bash
-   git clone https://github.com/ian-chuang/Manipulator-Mujoco.git
+   git clone git@github.com:dakolzin/MuJoCo-test.git
    ```
 
-2. Navigate to the root directory of the repository:
+2. Перейдите в корневую директорию репозитория:
 
    ```bash
    cd Manipulator-Mujoco
    ```
 
-3. Install the repository in editable mode:
+3. Установите репозиторий в режиме editable:
 
    ```bash
    pip install -e .
    ```
 
-## Demos
+## Демонстрационные примеры
 
-Explore the capabilities of Manipulator-Mujoco with the provided demos located in the `/demo` folder:
+- [Оглавление](#оглавление)
 
-### Aubo i5 Arm with AG95 Gripper
+Изучите возможности Manipulator-Mujoco с помощью демонстрационных примеров, расположенных в папке /demo:
 
-To run the demo for the Aubo i5 arm with the AG95 gripper, execute:
+### Aubo i5 с AG95 захватом
+
+Чтобы запустить демонстрацию для Aubo i5 с AG95 захватом, выполните:
 
 ```bash
+cd demo/old/
+
 python aubo_i5_demo.py
 ```
 
-### UR5e Arm
+<div style="text-align: justify;">
+В демонстрационных примерах можно управлять манипулятором: двойной клик выделяет целевой красный объект mocap, удерживая клавишу Ctrl и используя левую кнопку мыши для поворота или правую для перемещения. Манипулятор будет использовать операционное управление пространством для следования за целевым объектом mocap.
+</div>
 
-To run the demo for the UR5e arm, execute:
+## Настройка собственного окружения
 
-```bash
-python ur5e_demo.py
-```
+- [Оглавление](#оглавление)
 
-In the demos, you can manipulate the arm by double-clicking and selecting the target red box mocap. Hold the Ctrl key and left-click and drag to rotate or Ctrl key and right-click and drag to translate. The arm will utilize operational space control to follow the target mocap.
-
-## Setting Up Your Own Environment
-
-If you want to create your own environment, follow the structure defined in `manipulator_mujoco/envs`. Here's a simplified example of how to set up an environment:
+Если вы хотите создать собственное окружение, следуйте структуре, определённой в manipulator_mujoco/envs. Ниже приведён упрощённый пример настройки окружения:
 
 ```python
-# create checkerboard floor arena
+# создание сцены с шахматным покрытием пола
 self._arena = StandardArena()
 
-# create mocap target that OSC will try to follow
+# создание целевого объекта mocap, за которым будет следить OSC
 self._target = Target(self._arena.mjcf_model)
 
-# ur5e arm
+# роботизированный манипулятор UR5e
 self._arm = Arm(
     xml_path=os.path.join(
         os.path.dirname(__file__),
@@ -83,19 +173,18 @@ self._arm = Arm(
     attachment_site_name='attachment_site'
 )
 
-# attach arm to arena
+# присоединение манипуялтора к сцене
 self._arena.attach(
     self._arm.mjcf_model, pos=[0, 0, 0], quat=[0.7071068, 0, 0, -0.7071068]
 )
 
-# generate model
 self._physics = mjcf.Physics.from_mjcf_model(self._arena.mjcf_model)
 ```
 
-Operational space control setup is designed to be straightforward:
+Настройка операционного управления пространством разработана максимально просто:
 
 ```python
-# set up OSC controller
+# настройка контроллера OSC
 self._controller = OperationalSpaceController(
     physics=self._physics,
     joints=self._arm.joints,
@@ -110,26 +199,24 @@ self._controller = OperationalSpaceController(
 )
 ```
 
-Before running `physics.step()`, simply calculate the target pose and run the OSC controller to move to the target pose:
+Перед вызовом physics.step() просто вычислите целевую точку и запустите контроллер OSC для перемещения к ней:
 
 ```python
 target_pose = calculate_target_pose_for_OSC()  # [x, y, z, qx, qy, qz, qw]
 
-# run OSC controller to move to target pose
+# запуск контроллера OSC для перемещения к целевой позе
 self._controller.run(target_pose)
 
-# step physics
+# выполнение шага физики
 self._physics.step()
 ```
 
-The OperationalSpaceController and Arm classes handle the details of tracking the mjcf element IDs, eliminating the need to specify joint names or actuator names. It should work seamlessly with any robot arm model, including various joint types, as long as the actuators are removed from the model since the controller automatically applies torques to each joint.
+<div style="text-align: justify;">
+Классы OperationalSpaceController и Arm берут на себя детали отслеживания идентификаторов элементов mjcf, что избавляет от необходимости явно указывать имена суставов или двигателей. Они должны без проблем работать с любой моделью роботизированного манипулятора, включая различные типы суставов, при условии удаления двигателей из модели, так как контроллер автоматически применяет к каждому суставу необходимые усилия.
+</div>
 
-## Inspiration
+## Благодарности
 
-This repository drew inspiration from the following repositories:
+Особая благодарность Ian Chuang за разработку репозитория [Manipulator-Mujoco](https://github.com/ian-chuang/Manipulator-Mujoco), который послужил важной основой для данной симуляции.
 
-- [ARISE-Initiative/robosuite.git](https://github.com/ARISE-Initiative/robosuite.git)
-- [ir-lab/irl_control.git](https://github.com/ir-lab/irl_control.git)
-- [abr/abr_control.git](https://github.com/abr/abr_control.git)
-
-Feel free to explore, experiment, and contribute to this repository as you work on your robotic manipulation tasks in Mujoco with operational space control.
+---

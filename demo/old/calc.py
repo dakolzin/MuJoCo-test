@@ -2,7 +2,7 @@ from scipy.spatial.transform import Rotation as R
 import numpy as np
 
 # Определяем углы Эйлера в градусах (например, по оси XYZ)
-euler_angles = [102, 0, 90]  # задайте свои углы
+euler_angles = [0, 102, 90]  # задайте свои углы
 # Преобразуем в кватернион; результат по умолчанию в порядке [x, y, z, w]
 r = R.from_euler('xyz', euler_angles, degrees=True)
 quat_xyzw = r.as_quat()
