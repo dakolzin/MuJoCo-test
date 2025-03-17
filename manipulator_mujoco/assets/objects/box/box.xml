@@ -1,0 +1,31 @@
+<!-- box.xml -->
+
+<mujoco model="box">
+  <compiler meshdir="assets" />
+  <visual>
+    <global azimuth="90" elevation="-90"/>
+  </visual>
+  <default>
+    <default class="box">
+      <material specular="0.3" shininess="0.8"/>
+      <default class="visual">
+        <geom type="mesh" contype="0" conaffinity="0"/>
+      </default>
+      <default class="collision">
+        <geom type="mesh" solref="0.02 1" solimp="0.95 0.99 0.001"/>
+      </default>
+    </default>
+  </default>
+  <asset>
+    <material name="box_material" rgba="0.8 0.8 0.8 1"/>
+    <mesh name="box_mesh" file="box.stl" scale="1 1 1"/>
+  </asset>
+  <worldbody>
+    <light pos="0 0 2" dir="0 0 -1" directional="true"/>
+    <body name="box_body" childclass="box" pos="0 0 0">
+      <inertial pos="0 0 -2" mass="10" diaginertia="0.01 0.01 0.01"/>
+      <geom mesh="box_mesh" material="box_material" class="visual"/>
+      <geom mesh="box_mesh" material="box_material" class="collision"/>
+    </body>
+  </worldbody>
+</mujoco>

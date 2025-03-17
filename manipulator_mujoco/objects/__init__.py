@@ -1,2 +1,3 @@
 from manipulator_mujoco.objects.realsense import RealsenseD435i
 from manipulator_mujoco.objects.vase import VASE
+from manipulator_mujoco.objects.box import box

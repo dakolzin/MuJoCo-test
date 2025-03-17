@@ -55,14 +55,13 @@ class AuboI5Env(gym.Env):
 
         # ===== Добавляем камеру =====
         self._camera = RealsenseD435i()
-        self._arena.attach(self._camera.mjcf_model, pos=[0, 0.3, 0.24], quat=[0.44499672, 0.54952518, 0.54952518, 0.44499672])
+        self._arena.attach(self._camera.mjcf_model, pos=[0, 0.3, 0.249], quat=[0.44499672, 0.54952518, 0.54952518, 0.44499672])
         # ============================
 
         # ===== Добавляем объект =====
         self._vase = VASE()
         self._arena.attach_free(self._vase.mjcf_model, pos=[0.47, 0.25, 0], quat=[0.70710678, 0.0, 0.0, 0.70710678])
         # ============================
-
 
         # Генерируем физическую модель из MJCF модели арены
         self._physics = mjcf.Physics.from_mjcf_model(self._arena.mjcf_model)
