@@ -10,6 +10,8 @@ setup(
         ('share/ament_index/resource_index/packages',
             ['resource/' + package_name]),
         ('share/' + package_name, ['package.xml']),
+        ('share/' + package_name + '/config', ['config/config.rviz']),
+        ('share/' + package_name + '/launch', ['launch/view.launch.py']),
     ],
     install_requires=['setuptools'],
     zip_safe=True,
@@ -21,6 +23,7 @@ setup(
     entry_points={
         'console_scripts': [
             'tf_broadcaster = my_tf_broadcaster.tf_broadcaster:main',
+            'exp = my_tf_broadcaster.exp:main',
             'tf_grasp_listener = my_tf_broadcaster.tf_grasp_listener:main',
             'camera = my_tf_broadcaster.camera:main',
             'test = my_tf_broadcaster.test:main'

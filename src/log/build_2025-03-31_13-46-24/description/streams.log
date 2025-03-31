@@ -1,0 +1,53 @@
+[0.017s] Invoking command in '/home/danil/Manipulator-Mujoco/src/build/description': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/danil/Manipulator-Mujoco/src/install/my_tf_broadcaster:/opt/ros/humble /usr/bin/cmake /home/danil/Manipulator-Mujoco/src/description -DCMAKE_INSTALL_PREFIX=/home/danil/Manipulator-Mujoco/src/install/description
+[0.219s] -- The C compiler identification is GNU 9.5.0
+[0.388s] -- The CXX compiler identification is GNU 9.5.0
+[0.402s] -- Detecting C compiler ABI info
+[0.523s] -- Detecting C compiler ABI info - done
+[0.542s] -- Check for working C compiler: /usr/bin/gcc-9 - skipped
+[0.543s] -- Detecting C compile features
+[0.544s] -- Detecting C compile features - done
+[0.548s] -- Detecting CXX compiler ABI info
+[0.670s] -- Detecting CXX compiler ABI info - done
+[0.678s] -- Check for working CXX compiler: /usr/bin/g++-9 - skipped
+[0.679s] -- Detecting CXX compile features
+[0.680s] -- Detecting CXX compile features - done
+[0.684s] -- Found ament_cmake: 1.3.11 (/opt/ros/humble/share/ament_cmake/cmake)
+[0.886s] -- Found Python3: /usr/bin/python3 (found version "3.10.12") found components: Interpreter 
+[1.017s] -- Found ament_lint_auto: 0.12.11 (/opt/ros/humble/share/ament_lint_auto/cmake)
+[1.148s] -- Added test 'flake8' to check Python code syntax and style conventions
+[1.149s] -- Added test 'lint_cmake' to check CMake code style
+[1.150s] -- Added test 'pep257' to check Python code against some of the docstring style conventions in PEP 257
+[1.152s] -- Added test 'xmllint' to check XML markup files
+[1.154s] -- Configuring done
+[1.158s] -- Generating done
+[1.160s] -- Build files have been written to: /home/danil/Manipulator-Mujoco/src/build/description
+[1.166s] Invoked command in '/home/danil/Manipulator-Mujoco/src/build/description' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/danil/Manipulator-Mujoco/src/install/my_tf_broadcaster:/opt/ros/humble /usr/bin/cmake /home/danil/Manipulator-Mujoco/src/description -DCMAKE_INSTALL_PREFIX=/home/danil/Manipulator-Mujoco/src/install/description
+[1.168s] Invoking command in '/home/danil/Manipulator-Mujoco/src/build/description': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/danil/Manipulator-Mujoco/src/install/my_tf_broadcaster:/opt/ros/humble /usr/bin/cmake --build /home/danil/Manipulator-Mujoco/src/build/description -- -j4 -l4
+[1.226s] Invoked command in '/home/danil/Manipulator-Mujoco/src/build/description' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/danil/Manipulator-Mujoco/src/install/my_tf_broadcaster:/opt/ros/humble /usr/bin/cmake --build /home/danil/Manipulator-Mujoco/src/build/description -- -j4 -l4
+[1.239s] Invoking command in '/home/danil/Manipulator-Mujoco/src/build/description': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/danil/Manipulator-Mujoco/src/install/my_tf_broadcaster:/opt/ros/humble /usr/bin/cmake --install /home/danil/Manipulator-Mujoco/src/build/description
+[1.251s] -- Install configuration: ""
+[1.251s] -- Installing: /home/danil/Manipulator-Mujoco/src/install/description/share/description/launch
+[1.251s] -- Installing: /home/danil/Manipulator-Mujoco/src/install/description/share/description/launch/camera.launch.py
+[1.251s] -- Installing: /home/danil/Manipulator-Mujoco/src/install/description/share/description/launch/go.launch.py
+[1.251s] -- Installing: /home/danil/Manipulator-Mujoco/src/install/description/share/description/meshes
+[1.251s] -- Installing: /home/danil/Manipulator-Mujoco/src/install/description/share/description/meshes/box.stl
+[1.294s] -- Installing: /home/danil/Manipulator-Mujoco/src/install/description/share/description/urdf
+[1.294s] -- Installing: /home/danil/Manipulator-Mujoco/src/install/description/share/description/urdf/camera.urdf.xacro
+[1.294s] -- Installing: /home/danil/Manipulator-Mujoco/src/install/description/share/description/config
+[1.294s] -- Installing: /home/danil/Manipulator-Mujoco/src/install/description/share/description/config/rviz.rviz
+[1.295s] -- Installing: /home/danil/Manipulator-Mujoco/src/install/description/share/ament_index/resource_index/package_run_dependencies/description
+[1.295s] -- Installing: /home/danil/Manipulator-Mujoco/src/install/description/share/ament_index/resource_index/parent_prefix_path/description
+[1.295s] -- Installing: /home/danil/Manipulator-Mujoco/src/install/description/share/description/environment/ament_prefix_path.sh
+[1.296s] -- Installing: /home/danil/Manipulator-Mujoco/src/install/description/share/description/environment/ament_prefix_path.dsv
+[1.296s] -- Installing: /home/danil/Manipulator-Mujoco/src/install/description/share/description/environment/path.sh
+[1.296s] -- Installing: /home/danil/Manipulator-Mujoco/src/install/description/share/description/environment/path.dsv
+[1.296s] -- Installing: /home/danil/Manipulator-Mujoco/src/install/description/share/description/local_setup.bash
+[1.296s] -- Installing: /home/danil/Manipulator-Mujoco/src/install/description/share/description/local_setup.sh
+[1.296s] -- Installing: /home/danil/Manipulator-Mujoco/src/install/description/share/description/local_setup.zsh
+[1.297s] -- Installing: /home/danil/Manipulator-Mujoco/src/install/description/share/description/local_setup.dsv
+[1.297s] -- Installing: /home/danil/Manipulator-Mujoco/src/install/description/share/description/package.dsv
+[1.297s] -- Installing: /home/danil/Manipulator-Mujoco/src/install/description/share/ament_index/resource_index/packages/description
+[1.297s] -- Installing: /home/danil/Manipulator-Mujoco/src/install/description/share/description/cmake/descriptionConfig.cmake
+[1.297s] -- Installing: /home/danil/Manipulator-Mujoco/src/install/description/share/description/cmake/descriptionConfig-version.cmake
+[1.297s] -- Installing: /home/danil/Manipulator-Mujoco/src/install/description/share/description/package.xml
+[1.300s] Invoked command in '/home/danil/Manipulator-Mujoco/src/build/description' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/danil/Manipulator-Mujoco/src/install/my_tf_broadcaster:/opt/ros/humble /usr/bin/cmake --install /home/danil/Manipulator-Mujoco/src/build/description

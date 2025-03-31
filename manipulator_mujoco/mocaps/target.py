@@ -18,11 +18,37 @@ class Target(object):
         self._mocap = self._mjcf_root.worldbody.add("body", name="mocap", mocap=True)
         self._mocap.add(
             "geom",
-            type="box",
-            size=[0.015] * 3,
-            rgba=[1, 0, 0, 0.2],
-            conaffinity=0,
+            name="x_axis",
+            type="cylinder",
+            fromto=[0, 0, 0, 0.1, 0, 0],
+            size=[0.002],
+            rgba=[1, 0, 0, 1],   # красный
             contype=0,
+            conaffinity=0,
+        )
+
+        # Ось Y (зелёная) из (0,0,0) в (0,0.1,0)
+        self._mocap.add(
+            "geom",
+            name="y_axis",
+            type="cylinder",
+            fromto=[0, 0, 0, 0, 0.1, 0],
+            size=[0.002],
+            rgba=[0, 1, 0, 1],
+            contype=0,
+            conaffinity=0,
+        )
+
+        # Ось Z (синяя) из (0,0,0) в (0,0,0.1)
+        self._mocap.add(
+            "geom",
+            name="z_axis",
+            type="cylinder",
+            fromto=[0, 0, 0, 0, 0, 0.1],
+            size=[0.002],
+            rgba=[0, 0, 1, 1],
+            contype=0,
+            conaffinity=0,
         )
 
     @property
