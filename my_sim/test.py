@@ -17,7 +17,7 @@ def simulation_loop(ip, port):
     Основной цикл симуляции манипулятора:
     - Слушаем сокет в отдельном потоке, разбиваем входящие данные по \n.
     - Каждую полную JSON-строку парсим и кладём в очередь transform_queue.
-    - В главном потоке блокируемся на transform_queue.get() -> стартуем state machine.
+    - В главном потоке блокируемся на transform_queue.get() -> запускаем state machine.
     - По окончании state machine (done) снова ждём следующего transform.
     """
     env = gymnasium.make("manipulator_mujoco/AuboI5Env-v0", render_mode='human')
@@ -114,7 +114,7 @@ def simulation_loop(ip, port):
         print("\n=== Начинается новый прогон state machine ===")
 
         while True:
-            # 1) Управление схватом
+            # 1) Управление схватом (гладкое закрытие)
             if closing_in_progress:
                 elapsed = time.time() - closing_start_time
                 alpha = min(1.0, elapsed / closing_duration)
@@ -140,6 +140,9 @@ def simulation_loop(ip, port):
             if state == "random":
                 action = env.action_space.sample()
                 observation, reward, terminated, truncated, info = env.step(action)
+                # -- Выводим в консоль текущую позу MOCAP
+                print_mocap_pose(unwrapped_env)
+
                 if not closing_in_progress and not gripper_closed:
                     current_gripper_value = open_command
 
@@ -165,6 +168,9 @@ def simulation_loop(ip, port):
             elif state == "pre_grasp":
                 no_op = [0]*env.action_space.shape[0]
                 observation, reward, terminated, truncated, info = env.step(no_op)
+                # -- Выводим в консоль текущую позу MOCAP
+                print_mocap_pose(unwrapped_env)
+
                 if not closing_in_progress and not gripper_closed:
                     current_gripper_value = open_command
 
@@ -184,6 +190,8 @@ def simulation_loop(ip, port):
             elif state == "final_grasp":
                 action = env.action_space.sample()
                 observation, reward, terminated, truncated, info = env.step(action)
+                # -- Выводим в консоль текущую позу MOCAP
+                print_mocap_pose(unwrapped_env)
 
                 if final_grasp_start_time and (time.time()-final_grasp_start_time >= 3.0):
                     if not gripper_closed and not closing_in_progress:
@@ -199,6 +207,11 @@ def simulation_loop(ip, port):
                         state = "done"
 
             elif state == "lift":
+                action = env.action_space.sample()
+                observation, reward, terminated, truncated, info = env.step(action)
+                # -- Выводим в консоль текущую позу MOCAP
+                print_mocap_pose(unwrapped_env)
+
                 if not lift_done:
                     lift_offset = [0,0,0.4]
                     lift_translation = [
@@ -214,7 +227,6 @@ def simulation_loop(ip, port):
                             quaternion=quaternion_base
                         )
                     lift_done = True
-                    lift_start_time = time.time()
                 else:
                     if time.time()-lift_start_time > 5.0:
                         print("[State] Подъём завершен -> done")
@@ -223,8 +235,20 @@ def simulation_loop(ip, port):
             elif state == "done":
                 no_op = [0]*env.action_space.shape[0]
                 observation, reward, terminated, truncated, info = env.step(no_op)
+                # -- Выводим в консоль текущую позу MOCAP
+                print_mocap_pose(unwrapped_env)
+
                 print("[State] Прогон завершен, ждем следующую трансформацию.")
                 break
+
+    # Вспомогательная функция, которая печатает текущий mocap-позу
+    def print_mocap_pose(env_unwrapped):
+        if hasattr(env_unwrapped, "_target") and hasattr(env_unwrapped, "_physics"):
+            pose = env_unwrapped._target.get_mocap_pose(env_unwrapped._physics)
+            # pose это массив из 7 чисел: [px, py, pz, qx, qy, qz, qw]
+            pos = pose[:3]
+            quat = pose[3:]
+            print(f"[MocapPose] pos={pos}, quat={quat}")
 
     # Главный цикл: ждём трансформы -> run_state_machine() -> снова ждём
     print("[Main] Готов к получению трансформаций.")
