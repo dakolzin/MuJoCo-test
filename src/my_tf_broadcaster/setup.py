@@ -1,4 +1,5 @@
 from setuptools import find_packages, setup
+from glob import glob
 
 package_name = 'my_tf_broadcaster'
 
@@ -12,6 +13,7 @@ setup(
         ('share/' + package_name, ['package.xml']),
         ('share/' + package_name + '/config', ['config/config.rviz']),
         ('share/' + package_name + '/launch', ['launch/view.launch.py']),
+        ('share/' + package_name + '/saved_data', []),
     ],
     install_requires=['setuptools'],
     zip_safe=True,
@@ -24,6 +26,7 @@ setup(
         'console_scripts': [
             'tf_broadcaster = my_tf_broadcaster.tf_broadcaster:main',
             'exp = my_tf_broadcaster.exp:main',
+            'go = my_tf_broadcaster.go:main',
             'tf_grasp_listener = my_tf_broadcaster.tf_grasp_listener:main',
             'camera = my_tf_broadcaster.camera:main',
             'test = my_tf_broadcaster.test:main'

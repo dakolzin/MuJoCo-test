@@ -1,0 +1,26 @@
+[0.784s] Invoking command in '/home/danil/Manipulator-Mujoco/src/my_tf_broadcaster': PYTHONPATH=/home/danil/Manipulator-Mujoco/src/build/my_tf_broadcaster/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/danil/Manipulator-Mujoco/src/install/my_tf_broadcaster/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../build/my_tf_broadcaster build --build-base /home/danil/Manipulator-Mujoco/src/build/my_tf_broadcaster/build install --record /home/danil/Manipulator-Mujoco/src/build/my_tf_broadcaster/install.log --single-version-externally-managed install_data
+[1.057s] running egg_info
+[1.058s] writing ../build/my_tf_broadcaster/my_tf_broadcaster.egg-info/PKG-INFO
+[1.058s] writing dependency_links to ../build/my_tf_broadcaster/my_tf_broadcaster.egg-info/dependency_links.txt
+[1.059s] writing entry points to ../build/my_tf_broadcaster/my_tf_broadcaster.egg-info/entry_points.txt
+[1.059s] writing requirements to ../build/my_tf_broadcaster/my_tf_broadcaster.egg-info/requires.txt
+[1.059s] writing top-level names to ../build/my_tf_broadcaster/my_tf_broadcaster.egg-info/top_level.txt
+[1.061s] reading manifest file '../build/my_tf_broadcaster/my_tf_broadcaster.egg-info/SOURCES.txt'
+[1.062s] writing manifest file '../build/my_tf_broadcaster/my_tf_broadcaster.egg-info/SOURCES.txt'
+[1.062s] running build
+[1.062s] running build_py
+[1.063s] running install
+[1.063s] running install_lib
+[1.066s] running install_data
+[1.066s] running install_egg_info
+[1.068s] removing '/home/danil/Manipulator-Mujoco/src/install/my_tf_broadcaster/lib/python3.10/site-packages/my_tf_broadcaster-0.0.0-py3.10.egg-info' (and everything under it)
+[1.068s] Copying ../build/my_tf_broadcaster/my_tf_broadcaster.egg-info to /home/danil/Manipulator-Mujoco/src/install/my_tf_broadcaster/lib/python3.10/site-packages/my_tf_broadcaster-0.0.0-py3.10.egg-info
+[1.069s] running install_scripts
+[1.090s] Installing camera script to /home/danil/Manipulator-Mujoco/src/install/my_tf_broadcaster/lib/my_tf_broadcaster
+[1.090s] Installing exp script to /home/danil/Manipulator-Mujoco/src/install/my_tf_broadcaster/lib/my_tf_broadcaster
+[1.090s] Installing go script to /home/danil/Manipulator-Mujoco/src/install/my_tf_broadcaster/lib/my_tf_broadcaster
+[1.090s] Installing test script to /home/danil/Manipulator-Mujoco/src/install/my_tf_broadcaster/lib/my_tf_broadcaster
+[1.090s] Installing tf_broadcaster script to /home/danil/Manipulator-Mujoco/src/install/my_tf_broadcaster/lib/my_tf_broadcaster
+[1.090s] Installing tf_grasp_listener script to /home/danil/Manipulator-Mujoco/src/install/my_tf_broadcaster/lib/my_tf_broadcaster
+[1.091s] writing list of installed files to '/home/danil/Manipulator-Mujoco/src/build/my_tf_broadcaster/install.log'
+[1.115s] Invoked command in '/home/danil/Manipulator-Mujoco/src/my_tf_broadcaster' returned '0': PYTHONPATH=/home/danil/Manipulator-Mujoco/src/build/my_tf_broadcaster/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/danil/Manipulator-Mujoco/src/install/my_tf_broadcaster/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../build/my_tf_broadcaster build --build-base /home/danil/Manipulator-Mujoco/src/build/my_tf_broadcaster/build install --record /home/danil/Manipulator-Mujoco/src/build/my_tf_broadcaster/install.log --single-version-externally-managed install_data

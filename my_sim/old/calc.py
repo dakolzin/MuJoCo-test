@@ -1,13 +1,26 @@
-from scipy.spatial.transform import Rotation as R
-import numpy as np
+import math
 
-# Определяем углы Эйлера в градусах (например, по оси XYZ)
-euler_angles = [90, 0, 0]  # задайте свои углы
-# Преобразуем в кватернион; результат по умолчанию в порядке [x, y, z, w]
-r = R.from_euler('xyz', euler_angles, degrees=True)
-quat_xyzw = r.as_quat()
+def euler_to_quaternion(roll, pitch, yaw):
+    # Переводим углы в радианы
+    roll = math.radians(roll)
+    pitch = math.radians(pitch)
+    yaw = math.radians(yaw)
+    
+    # Вычисляем полууглы
+    cy = math.cos(yaw * 0.5)
+    sy = math.sin(yaw * 0.5)
+    cp = math.cos(pitch * 0.5)
+    sp = math.sin(pitch * 0.5)
+    cr = math.cos(roll * 0.5)
+    sr = math.sin(roll * 0.5)
+    
+    # Формулы преобразования
+    w = cr * cp * cy + sr * sp * sy
+    x = sr * cp * cy - cr * sp * sy
+    y = cr * sp * cy + sr * cp * sy
+    z = cr * cp * sy - sr * sp * cy
+    return (w, x, y, z)
 
-# MuJoCo обычно использует порядок кватерниона [w, x, y, z]
-quat_wxyz = np.concatenate(([quat_xyzw[3]], quat_xyzw[:3]))
-
-print("Кватернион (w, x, y, z):", quat_wxyz)
+# Задаём углы: roll=90°, pitch=180°, yaw=0°
+quat = euler_to_quaternion(90, 0, 90)
+print("Кватернион (w, x, y, z):", quat)

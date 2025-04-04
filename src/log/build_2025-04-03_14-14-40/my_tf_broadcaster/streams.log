@@ -1,0 +1,19 @@
+[0.780s] Invoking command in '/home/danil/Manipulator-Mujoco/src/my_tf_broadcaster': PYTHONPATH=/home/danil/Manipulator-Mujoco/src/build/my_tf_broadcaster/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/danil/Manipulator-Mujoco/src/install/my_tf_broadcaster/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../build/my_tf_broadcaster build --build-base /home/danil/Manipulator-Mujoco/src/build/my_tf_broadcaster/build install --record /home/danil/Manipulator-Mujoco/src/build/my_tf_broadcaster/install.log --single-version-externally-managed install_data
+[1.051s] running egg_info
+[1.052s] writing ../build/my_tf_broadcaster/my_tf_broadcaster.egg-info/PKG-INFO
+[1.053s] writing dependency_links to ../build/my_tf_broadcaster/my_tf_broadcaster.egg-info/dependency_links.txt
+[1.053s] writing entry points to ../build/my_tf_broadcaster/my_tf_broadcaster.egg-info/entry_points.txt
+[1.053s] writing requirements to ../build/my_tf_broadcaster/my_tf_broadcaster.egg-info/requires.txt
+[1.053s] writing top-level names to ../build/my_tf_broadcaster/my_tf_broadcaster.egg-info/top_level.txt
+[1.057s] reading manifest file '../build/my_tf_broadcaster/my_tf_broadcaster.egg-info/SOURCES.txt'
+[1.062s] writing manifest file '../build/my_tf_broadcaster/my_tf_broadcaster.egg-info/SOURCES.txt'
+[1.062s] running build
+[1.062s] running build_py
+[1.063s] copying my_tf_broadcaster/go.py -> /home/danil/Manipulator-Mujoco/src/build/my_tf_broadcaster/build/lib/my_tf_broadcaster
+[1.063s] running install
+[1.064s] running install_lib
+[1.065s] copying /home/danil/Manipulator-Mujoco/src/build/my_tf_broadcaster/build/lib/my_tf_broadcaster/go.py -> /home/danil/Manipulator-Mujoco/src/install/my_tf_broadcaster/lib/python3.10/site-packages/my_tf_broadcaster
+[1.065s] byte-compiling /home/danil/Manipulator-Mujoco/src/install/my_tf_broadcaster/lib/python3.10/site-packages/my_tf_broadcaster/go.py to go.cpython-310.pyc
+[1.068s] running install_data
+[1.069s] error: can't copy 'saved_data/': doesn't exist or not a regular file
+[1.088s] Invoked command in '/home/danil/Manipulator-Mujoco/src/my_tf_broadcaster' returned '1': PYTHONPATH=/home/danil/Manipulator-Mujoco/src/build/my_tf_broadcaster/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/danil/Manipulator-Mujoco/src/install/my_tf_broadcaster/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../build/my_tf_broadcaster build --build-base /home/danil/Manipulator-Mujoco/src/build/my_tf_broadcaster/build install --record /home/danil/Manipulator-Mujoco/src/build/my_tf_broadcaster/install.log --single-version-externally-managed install_data

@@ -1,5 +1,5 @@
 <?xml version="1.0" ?>
-<robot name="spam" xmlns:xacro="http://www.ros.org/wiki/xacro">
+<robot name="stand" xmlns:xacro="http://www.ros.org/wiki/xacro">
 
 <xacro:property name="my_pi" value="3.1415"/>
 <xacro:property name="scale_small" value="0.001"/>
@@ -42,17 +42,17 @@
 <!-- Robot description -->
 
 <link name="root_link"/>
-<xacro:add_joint name="root_base_joint" type="fixed" parent="root_link" child="base_link" axis="0 0 0" rpy="0 0 0" xyz="0.0 0.0 0.0" lower="0" upper="0" effort="0" velocity="0"/>
-<link name="base_link"/>
+<xacro:add_joint name="root_base_joint" type="fixed" parent="base" child="root_link" axis="0 0 0" rpy="0 0 0" xyz="0.0 0.0 0.5" lower="0" upper="0" effort="0" velocity="0"/>
+<link name="base"/>
 
 <xacro:add_link name="box" mesh="box.stl" scale="${scale_small}" color="${color_black}" rpy="0 1.57 0" xyz="0 0 0"/>
-<xacro:add_joint name="box_trc_211_joint" type="fixed" parent="base_link" child="box" axis="0 0 0" rpy="1.57 0 0" xyz="-0.195 0.472 0.2" lower="0" upper="0" effort="0" velocity="0"/>
+<xacro:add_joint name="box_trc_211_joint" type="fixed" parent="root_link" child="box" axis="0 0 0" rpy="1.57 0 0" xyz="-0.162 0.505 0.205" lower="0" upper="0" effort="0" velocity="0"/>
 
 <!--==========================-->
 <!-- SENSORS -->
 <!--==========================-->
 
-<link name="cam_frame"/>
-<xacro:add_joint name="cam_frame_joint" type="fixed" parent="box" child="cam_frame" axis="0 0 0" rpy="-0.20944 -1.57 3.14" xyz="0.19489 0.049 0.1725" lower="0" upper="0" effort="0" velocity="0"/>
+<link name="camera"/>
+<xacro:add_joint name="camera_joint" type="fixed" parent="box" child="camera" axis="0 0 0" rpy="-0.20944 -1.57 3.14" xyz="0.19489 0.049 0.1725" lower="0" upper="0" effort="0" velocity="0"/>
 
 </robot>

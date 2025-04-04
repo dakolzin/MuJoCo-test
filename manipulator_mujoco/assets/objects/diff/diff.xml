@@ -1,0 +1,31 @@
+<!-- diff.xml -->
+
+<mujoco model="diff">
+  <compiler meshdir="assets" />
+  <visual>
+    <global azimuth="90" elevation="-90"/>
+  </visual>
+  <default>
+    <default class="diff">
+      <material specular="0.3" shininess="0.8"/>
+      <default class="visual">
+        <geom type="mesh" contype="0" conaffinity="0"/>
+      </default>
+      <default class="collision">
+        <geom type="mesh" solref="0.02 1" solimp="0.95 0.99 0.001"/>
+      </default>
+    </default>
+  </default>
+  <asset>
+    <material name="diff_material" rgba="0.8 0.8 0.8 1"/>
+    <mesh name="diff_mesh" file="diff.stl" scale="1 1 1"/>
+  </asset>
+  <worldbody>
+    <light pos="0 0 2" dir="0 0 -1" directional="true"/>
+    <body name="diff_body" childclass="diff" pos="0 0 0">
+      <inertial pos="0 0 0" mass="1.0" diaginertia="0.01 0.01 0.01"/>
+      <geom mesh="diff_mesh" material="diff_material" class="visual"/>
+      <geom mesh="diff_mesh" material="diff_material" class="collision"/>
+    </body>
+  </worldbody>
+</mujoco>

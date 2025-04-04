@@ -66,12 +66,6 @@ def generate_launch_description():
                      'robot_description': Command(['xacro ', model])}],
         arguments=[model])
 
-    go = Node(
-            package = 'my_tf_broadcaster',
-            executable = 'tf_grasp_listener',
-            name = 'tf_grasp_listener',
-            output='screen'
-        )
 
     start_rviz_cmd = Node(
         condition=IfCondition(use_rviz),
@@ -89,7 +83,6 @@ def generate_launch_description():
     ld.add_action(declare_use_rviz_cmd) 
     ld.add_action(declare_use_sim_time_cmd)
     ld.add_action(log_rviz_config_path)
-    ld.add_action(go)
     ld.add_action(start_joint_state_publisher_cmd)
     ld.add_action(start_robot_state_publisher_cmd)
     ld.add_action(start_rviz_cmd)
