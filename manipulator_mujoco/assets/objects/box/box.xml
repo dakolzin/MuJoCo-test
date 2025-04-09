@@ -21,7 +21,6 @@
     <mesh name="box_mesh" file="box.obj" scale="1 1 1"/>
   </asset>
   <worldbody>
-    <light pos="0 0 2" dir="0 0 -1" directional="true"/>
     <body name="box_body" childclass="box" pos="0 0 0">
       <inertial pos="0 0 0" mass="30" diaginertia="0.01 0.01 0.01"/>
       <geom mesh="box_mesh" material="box_material" class="visual"/>

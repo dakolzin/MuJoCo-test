@@ -21,7 +21,6 @@
     <mesh name="stand_mesh" file="stand.obj" scale="1 1 1"/>
   </asset>
   <worldbody>
-    <light pos="0 0 2" dir="0 0 -1" directional="true"/>
     <body name="stand_body" childclass="stand" pos="0 0 0">
       <inertial pos="0 0 0" mass="100" diaginertia="0.01 0.01 0.01"/>
       <geom mesh="stand_mesh" material="stand_material" class="visual"/>

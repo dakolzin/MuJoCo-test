@@ -22,10 +22,9 @@ def generate_launch_description():
         parameters=[{'robot_description': Command(['xacro ', model])}],
         arguments=[model])
 
-    # Если нужно сделать выбор режима через аргумент запуска:
     mode_arg = DeclareLaunchArgument(
         'mode',
-        default_value='--diff',  # или '--diff'
+        default_value='--vase',  
         description='Режим: --vase или --diff'
     )
 
@@ -53,7 +52,6 @@ def generate_launch_description():
         executable='test',
         name='test',
         output='screen',
-        # Передаём аргумент, например --vase или --diff, в зависимости от параметра mode:
         arguments=[LaunchConfiguration('mode')]
     )
 

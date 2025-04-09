@@ -22,5 +22,5 @@ def euler_to_quaternion(roll, pitch, yaw):
     return (w, x, y, z)
 
 # Задаём углы: roll=90°, pitch=180°, yaw=0°
-quat = euler_to_quaternion(90, 0, 90)
+quat = euler_to_quaternion(0, 90, 0)
 print("Кватернион (w, x, y, z):", quat)

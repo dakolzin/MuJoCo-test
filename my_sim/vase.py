@@ -20,7 +20,7 @@ def simulation_loop(ip, port):
     - В главном потоке блокируемся на transform_queue.get() -> запускаем state machine.
     - По окончании state machine (done) снова ждём следующего transform.
     """
-    env = gymnasium.make("manipulator_mujoco/AuboI5Env-v0", render_mode='human')
+    env = gymnasium.make("manipulator_mujoco/AuboI5EnvVase-v0", render_mode='human')
     unwrapped_env = env.unwrapped
 
     transform_queue = queue.Queue()
@@ -88,7 +88,7 @@ def simulation_loop(ip, port):
 
     open_command = 0.0
     closed_command = 0.943
-    FORCE_THRESHOLD = 120.0
+    FORCE_THRESHOLD = 1200.0
 
     def run_state_machine(transform):
         """Запускаем цикл random->pre_grasp->final_grasp->lift->done для данного transform."""
@@ -204,7 +204,7 @@ def simulation_loop(ip, port):
                     if time.time()-final_grasp_capture_time >= 2.0:
                         print("[State] Переход -> lift")
                         lift_start_time = time.time()
-                        state = "done"
+                        state = "lift"
 
             elif state == "lift":
                 action = env.action_space.sample()
@@ -248,7 +248,7 @@ def simulation_loop(ip, port):
             # pose это массив из 7 чисел: [px, py, pz, qx, qy, qz, qw]
             pos = pose[:3]
             quat = pose[3:]
-            print(f"[MocapPose] pos={pos}, quat={quat}")
+            #print(f"[MocapPose] pos={pos}, quat={quat}")
 
     # Главный цикл: ждём трансформы -> run_state_machine() -> снова ждём
     print("[Main] Готов к получению трансформаций.")

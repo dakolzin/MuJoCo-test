@@ -21,7 +21,6 @@
     <mesh name="diff_mesh" file="diff.stl" scale="1 1 1"/>
   </asset>
   <worldbody>
-    <light pos="0 0 2" dir="0 0 -1" directional="true"/>
     <body name="diff_body" childclass="diff" pos="0 0 0">
       <inertial pos="0 0 0" mass="1.0" diaginertia="0.01 0.01 0.01"/>
       <geom mesh="diff_mesh" material="diff_material" class="visual"/>

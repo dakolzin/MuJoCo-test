@@ -88,7 +88,7 @@ def simulation_loop(ip, port):
 
     open_command = 0.0
     closed_command = 0.943
-    FORCE_THRESHOLD = 120.0
+    FORCE_THRESHOLD = 1200.0
 
     def run_state_machine(transform):
         """Запускаем цикл random->pre_grasp->final_grasp->lift->done для данного transform."""
