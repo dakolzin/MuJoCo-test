@@ -1,4 +1,0 @@
-Invoking command in '/home/danil/Manipulator-Mujoco/src/build/description': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --build /home/danil/Manipulator-Mujoco/src/build/description -- -j4 -l4
-Invoked command in '/home/danil/Manipulator-Mujoco/src/build/description' returned '0': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --build /home/danil/Manipulator-Mujoco/src/build/description -- -j4 -l4
-Invoking command in '/home/danil/Manipulator-Mujoco/src/build/description': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --install /home/danil/Manipulator-Mujoco/src/build/description
-Invoked command in '/home/danil/Manipulator-Mujoco/src/build/description' returned '0': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --install /home/danil/Manipulator-Mujoco/src/build/description

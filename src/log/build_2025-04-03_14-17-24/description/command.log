@@ -1,1 +1,0 @@
-Invoking command in '/home/danil/Manipulator-Mujoco/src/build/description': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/danil/Manipulator-Mujoco/src/install/my_tf_broadcaster:/opt/ros/humble /usr/bin/cmake --build /home/danil/Manipulator-Mujoco/src/build/description -- -j4 -l4

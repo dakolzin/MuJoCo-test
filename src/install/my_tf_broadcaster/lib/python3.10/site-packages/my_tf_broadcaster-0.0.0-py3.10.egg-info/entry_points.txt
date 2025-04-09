@@ -1,8 +1,0 @@
-[console_scripts]
-camera = my_tf_broadcaster.camera:main
-exp = my_tf_broadcaster.exp:main
-go = my_tf_broadcaster.go:main
-test = my_tf_broadcaster.test:main
-tf_broadcaster = my_tf_broadcaster.tf_broadcaster:main
-tf_grasp_listener = my_tf_broadcaster.tf_grasp_listener:main
-
