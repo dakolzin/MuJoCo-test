@@ -31,7 +31,7 @@ Manipulator-Mujoco — это шаблонный репозиторий, кот�
 Для запуска симуляции необходимо запустить следующий скрипт:
 
 ```bash
-cd demo
+cd lab_1.2/my_sim
 
 python3 go_simulation.py
 ```
@@ -141,7 +141,7 @@ IV. Подъем объекта
 Чтобы запустить демонстрацию для Aubo i5 с AG95 захватом, выполните:
 
 ```bash
-cd my_sim/old/
+cd lab_1.2/my_sim/old/
 
 python aubo_i5_demo.py
 ```
@@ -221,10 +221,10 @@ self._physics.step()
 
 Для запуска необходимо выполнить следующие команды. 
 
-1. **Перейти в папку Manipulator-Mujoco**:
+1. **Перейти в папку lab_1.2**:
 
 ```bash
-cd Manipulator-Mujoco
+cd lab_1.2
 ```
 
 **Запустить bash-скрипт:**
@@ -234,7 +234,7 @@ cd Manipulator-Mujoco
 ```
 2. **В другом терминале перейти в [my_sim](./my_sim)**:
 ```bash
-cd Manipulator-Mujoco/my_sim
+cd lab_1.2o/my_sim
 ```
 **Запустить один из скриптов:**
 ```bash
