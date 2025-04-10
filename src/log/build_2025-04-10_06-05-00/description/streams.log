@@ -1,2 +1,0 @@
-[0.017s] Invoking command in '/mujoco/src/build/description': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --build /mujoco/src/build/description -- -j4 -l4
-[0.033s] gmake: *** [Makefile:226: cmake_check_build_system] Interrupt

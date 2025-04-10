@@ -1,4 +1,0 @@
-Invoking command in '/mujoco/src/build/description': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/mujoco/src/install/my_tf_broadcaster:/opt/ros/humble /usr/bin/cmake --build /mujoco/src/build/description -- -j4 -l4
-Invoked command in '/mujoco/src/build/description' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/mujoco/src/install/my_tf_broadcaster:/opt/ros/humble /usr/bin/cmake --build /mujoco/src/build/description -- -j4 -l4
-Invoking command in '/mujoco/src/build/description': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/mujoco/src/install/my_tf_broadcaster:/opt/ros/humble /usr/bin/cmake --install /mujoco/src/build/description
-Invoked command in '/mujoco/src/build/description' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/mujoco/src/install/my_tf_broadcaster:/opt/ros/humble /usr/bin/cmake --install /mujoco/src/build/description
