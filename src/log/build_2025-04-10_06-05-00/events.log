@@ -1,0 +1,12 @@
+[0.000000] (-) TimerEvent: {}
+[0.000232] (description) JobQueued: {'identifier': 'description', 'dependencies': OrderedDict()}
+[0.000300] (my_tf_broadcaster) JobQueued: {'identifier': 'my_tf_broadcaster', 'dependencies': OrderedDict()}
+[0.000766] (description) JobStarted: {'identifier': 'description'}
+[0.007955] (my_tf_broadcaster) JobStarted: {'identifier': 'my_tf_broadcaster'}
+[0.015597] (description) JobProgress: {'identifier': 'description', 'progress': 'cmake'}
+[0.016150] (description) JobProgress: {'identifier': 'description', 'progress': 'build'}
+[0.016928] (description) Command: {'cmd': ['/usr/bin/cmake', '--build', '/mujoco/src/build/description', '--', '-j4', '-l4'], 'cwd': '/mujoco/src/build/description', 'env': OrderedDict([('HOSTNAME', 'danil-H110M-S2PV'), ('SHLVL', '1'), ('LD_LIBRARY_PATH', '/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib'), ('HOME', '/root'), ('OLDPWD', '/mujoco'), ('ROS_PYTHON_VERSION', '3'), ('ROS_DISTRO', 'humble'), ('_', '/usr/bin/colcon'), ('ROS_VERSION', '2'), ('NVIDIA_DRIVER_CAPABILITIES', 'compute,utility'), ('TERM', 'xterm'), ('ROS_LOCALHOST_ONLY', '0'), ('PATH', '/opt/ros/humble/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'), ('DISPLAY', ':1'), ('LANG', 'C.UTF-8'), ('ROS_DOMAIN_ID', '137'), ('AMENT_PREFIX_PATH', '/opt/ros/humble'), ('PWD', '/mujoco/src/build/description'), ('LC_ALL', 'C.UTF-8'), ('PYTHONPATH', '/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages'), ('NVIDIA_VISIBLE_DEVICES', 'all'), ('COLCON', '1'), ('CMAKE_PREFIX_PATH', '/opt/ros/humble')]), 'shell': False}
+[0.033754] (description) StderrLine: {'line': b'gmake: *** [Makefile:226: cmake_check_build_system] Interrupt\n'}
+[0.034767] (my_tf_broadcaster) JobEnded: {'identifier': 'my_tf_broadcaster', 'rc': 0}
+[0.035888] (description) JobEnded: {'identifier': 'description', 'rc': 'SIGINT'}
+[0.046485] (-) EventReactorShutdown: {}

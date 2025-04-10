@@ -1,0 +1,75 @@
+[0.000000] (-) TimerEvent: {}
+[0.000218] (description) JobQueued: {'identifier': 'description', 'dependencies': OrderedDict()}
+[0.000293] (my_tf_broadcaster) JobQueued: {'identifier': 'my_tf_broadcaster', 'dependencies': OrderedDict()}
+[0.000323] (description) JobStarted: {'identifier': 'description'}
+[0.007756] (my_tf_broadcaster) JobStarted: {'identifier': 'my_tf_broadcaster'}
+[0.015582] (description) JobProgress: {'identifier': 'description', 'progress': 'cmake'}
+[0.015890] (description) JobProgress: {'identifier': 'description', 'progress': 'build'}
+[0.016781] (description) Command: {'cmd': ['/usr/bin/cmake', '--build', '/mujoco/src/build/description', '--', '-j4', '-l4'], 'cwd': '/mujoco/src/build/description', 'env': OrderedDict([('HOSTNAME', 'danil-H110M-S2PV'), ('SHLVL', '1'), ('LD_LIBRARY_PATH', '/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib'), ('HOME', '/root'), ('OLDPWD', '/mujoco'), ('ROS_PYTHON_VERSION', '3'), ('ROS_DISTRO', 'humble'), ('_', '/usr/bin/colcon'), ('ROS_VERSION', '2'), ('NVIDIA_DRIVER_CAPABILITIES', 'compute,utility'), ('TERM', 'xterm'), ('ROS_LOCALHOST_ONLY', '0'), ('PATH', '/opt/ros/humble/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'), ('DISPLAY', ':1'), ('LANG', 'C.UTF-8'), ('ROS_DOMAIN_ID', '61'), ('AMENT_PREFIX_PATH', '/opt/ros/humble'), ('PWD', '/mujoco/src/build/description'), ('LC_ALL', 'C.UTF-8'), ('PYTHONPATH', '/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages'), ('NVIDIA_VISIBLE_DEVICES', 'all'), ('COLCON', '1'), ('CMAKE_PREFIX_PATH', '/opt/ros/humble')]), 'shell': False}
+[0.099087] (-) TimerEvent: {}
+[0.199373] (-) TimerEvent: {}
+[0.275875] (description) CommandEnded: {'returncode': 0}
+[0.276467] (description) JobProgress: {'identifier': 'description', 'progress': 'install'}
+[0.286509] (description) Command: {'cmd': ['/usr/bin/cmake', '--install', '/mujoco/src/build/description'], 'cwd': '/mujoco/src/build/description', 'env': OrderedDict([('HOSTNAME', 'danil-H110M-S2PV'), ('SHLVL', '1'), ('LD_LIBRARY_PATH', '/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib'), ('HOME', '/root'), ('OLDPWD', '/mujoco'), ('ROS_PYTHON_VERSION', '3'), ('ROS_DISTRO', 'humble'), ('_', '/usr/bin/colcon'), ('ROS_VERSION', '2'), ('NVIDIA_DRIVER_CAPABILITIES', 'compute,utility'), ('TERM', 'xterm'), ('ROS_LOCALHOST_ONLY', '0'), ('PATH', '/opt/ros/humble/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'), ('DISPLAY', ':1'), ('LANG', 'C.UTF-8'), ('ROS_DOMAIN_ID', '61'), ('AMENT_PREFIX_PATH', '/opt/ros/humble'), ('PWD', '/mujoco/src/build/description'), ('LC_ALL', 'C.UTF-8'), ('PYTHONPATH', '/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages'), ('NVIDIA_VISIBLE_DEVICES', 'all'), ('COLCON', '1'), ('CMAKE_PREFIX_PATH', '/opt/ros/humble')]), 'shell': False}
+[0.295432] (description) StdoutLine: {'line': b'-- Install configuration: ""\n'}
+[0.295792] (description) StdoutLine: {'line': b'-- Up-to-date: /mujoco/src/install/description/share/description/launch\n'}
+[0.295905] (description) StdoutLine: {'line': b'-- Up-to-date: /mujoco/src/install/description/share/description/launch/camera.launch.py\n'}
+[0.295977] (description) StdoutLine: {'line': b'-- Up-to-date: /mujoco/src/install/description/share/description/launch/go.launch.py\n'}
+[0.296042] (description) StdoutLine: {'line': b'-- Up-to-date: /mujoco/src/install/description/share/description/meshes\n'}
+[0.296104] (description) StdoutLine: {'line': b'-- Up-to-date: /mujoco/src/install/description/share/description/meshes/box.stl\n'}
+[0.296167] (description) StdoutLine: {'line': b'-- Up-to-date: /mujoco/src/install/description/share/description/urdf\n'}
+[0.296228] (description) StdoutLine: {'line': b'-- Up-to-date: /mujoco/src/install/description/share/description/urdf/camera.urdf.xacro\n'}
+[0.296289] (description) StdoutLine: {'line': b'-- Up-to-date: /mujoco/src/install/description/share/description/config\n'}
+[0.296350] (description) StdoutLine: {'line': b'-- Up-to-date: /mujoco/src/install/description/share/description/config/rviz.rviz\n'}
+[0.296506] (description) StdoutLine: {'line': b'-- Up-to-date: /mujoco/src/install/description/share/ament_index/resource_index/package_run_dependencies/description\n'}
+[0.296578] (description) StdoutLine: {'line': b'-- Up-to-date: /mujoco/src/install/description/share/ament_index/resource_index/parent_prefix_path/description\n'}
+[0.296640] (description) StdoutLine: {'line': b'-- Up-to-date: /mujoco/src/install/description/share/description/environment/ament_prefix_path.sh\n'}
+[0.296708] (description) StdoutLine: {'line': b'-- Up-to-date: /mujoco/src/install/description/share/description/environment/ament_prefix_path.dsv\n'}
+[0.296778] (description) StdoutLine: {'line': b'-- Up-to-date: /mujoco/src/install/description/share/description/environment/path.sh\n'}
+[0.296838] (description) StdoutLine: {'line': b'-- Up-to-date: /mujoco/src/install/description/share/description/environment/path.dsv\n'}
+[0.296898] (description) StdoutLine: {'line': b'-- Up-to-date: /mujoco/src/install/description/share/description/local_setup.bash\n'}
+[0.296962] (description) StdoutLine: {'line': b'-- Up-to-date: /mujoco/src/install/description/share/description/local_setup.sh\n'}
+[0.297021] (description) StdoutLine: {'line': b'-- Up-to-date: /mujoco/src/install/description/share/description/local_setup.zsh\n'}
+[0.297081] (description) StdoutLine: {'line': b'-- Up-to-date: /mujoco/src/install/description/share/description/local_setup.dsv\n'}
+[0.297141] (description) StdoutLine: {'line': b'-- Installing: /mujoco/src/install/description/share/description/package.dsv\n'}
+[0.297260] (description) StdoutLine: {'line': b'-- Up-to-date: /mujoco/src/install/description/share/ament_index/resource_index/packages/description\n'}
+[0.297328] (description) StdoutLine: {'line': b'-- Up-to-date: /mujoco/src/install/description/share/description/cmake/descriptionConfig.cmake\n'}
+[0.297390] (description) StdoutLine: {'line': b'-- Up-to-date: /mujoco/src/install/description/share/description/cmake/descriptionConfig-version.cmake\n'}
+[0.297451] (description) StdoutLine: {'line': b'-- Up-to-date: /mujoco/src/install/description/share/description/package.xml\n'}
+[0.298605] (description) CommandEnded: {'returncode': 0}
+[0.300107] (-) TimerEvent: {}
+[0.316763] (description) JobEnded: {'identifier': 'description', 'rc': 0}
+[0.400224] (-) TimerEvent: {}
+[0.500498] (-) TimerEvent: {}
+[0.600777] (-) TimerEvent: {}
+[0.613311] (my_tf_broadcaster) Command: {'cmd': ['/usr/bin/python3', '-W', 'ignore:setup.py install is deprecated', '-W', 'ignore:easy_install command is deprecated', 'setup.py', 'egg_info', '--egg-base', '../build/my_tf_broadcaster', 'build', '--build-base', '/mujoco/src/build/my_tf_broadcaster/build', 'install', '--record', '/mujoco/src/build/my_tf_broadcaster/install.log', '--single-version-externally-managed', 'install_data'], 'cwd': '/mujoco/src/my_tf_broadcaster', 'env': {'HOSTNAME': 'danil-H110M-S2PV', 'SHLVL': '1', 'LD_LIBRARY_PATH': '/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib', 'HOME': '/root', 'OLDPWD': '/mujoco', 'ROS_PYTHON_VERSION': '3', 'ROS_DISTRO': 'humble', '_': '/usr/bin/colcon', 'ROS_VERSION': '2', 'NVIDIA_DRIVER_CAPABILITIES': 'compute,utility', 'TERM': 'xterm', 'ROS_LOCALHOST_ONLY': '0', 'PATH': '/opt/ros/humble/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', 'DISPLAY': ':1', 'LANG': 'C.UTF-8', 'ROS_DOMAIN_ID': '61', 'AMENT_PREFIX_PATH': '/opt/ros/humble', 'PWD': '/mujoco/src/build/my_tf_broadcaster', 'LC_ALL': 'C.UTF-8', 'PYTHONPATH': '/mujoco/src/build/my_tf_broadcaster/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/mujoco/src/install/my_tf_broadcaster/lib/python3.10/site-packages:/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages', 'NVIDIA_VISIBLE_DEVICES': 'all', 'COLCON': '1'}, 'shell': False}
+[0.700861] (-) TimerEvent: {}
+[0.801156] (-) TimerEvent: {}
+[0.844213] (my_tf_broadcaster) StdoutLine: {'line': b'running egg_info\n'}
+[0.844960] (my_tf_broadcaster) StdoutLine: {'line': b'writing ../build/my_tf_broadcaster/my_tf_broadcaster.egg-info/PKG-INFO\n'}
+[0.845250] (my_tf_broadcaster) StdoutLine: {'line': b'writing dependency_links to ../build/my_tf_broadcaster/my_tf_broadcaster.egg-info/dependency_links.txt\n'}
+[0.845503] (my_tf_broadcaster) StdoutLine: {'line': b'writing entry points to ../build/my_tf_broadcaster/my_tf_broadcaster.egg-info/entry_points.txt\n'}
+[0.845662] (my_tf_broadcaster) StdoutLine: {'line': b'writing requirements to ../build/my_tf_broadcaster/my_tf_broadcaster.egg-info/requires.txt\n'}
+[0.845794] (my_tf_broadcaster) StdoutLine: {'line': b'writing top-level names to ../build/my_tf_broadcaster/my_tf_broadcaster.egg-info/top_level.txt\n'}
+[0.847382] (my_tf_broadcaster) StdoutLine: {'line': b"reading manifest file '../build/my_tf_broadcaster/my_tf_broadcaster.egg-info/SOURCES.txt'\n"}
+[0.848467] (my_tf_broadcaster) StdoutLine: {'line': b"writing manifest file '../build/my_tf_broadcaster/my_tf_broadcaster.egg-info/SOURCES.txt'\n"}
+[0.848721] (my_tf_broadcaster) StdoutLine: {'line': b'running build\n'}
+[0.848850] (my_tf_broadcaster) StdoutLine: {'line': b'running build_py\n'}
+[0.849423] (my_tf_broadcaster) StdoutLine: {'line': b'running install\n'}
+[0.849741] (my_tf_broadcaster) StdoutLine: {'line': b'running install_lib\n'}
+[0.851193] (my_tf_broadcaster) StdoutLine: {'line': b'running install_data\n'}
+[0.851420] (my_tf_broadcaster) StdoutLine: {'line': b'running install_egg_info\n'}
+[0.853298] (my_tf_broadcaster) StdoutLine: {'line': b"removing '/mujoco/src/install/my_tf_broadcaster/lib/python3.10/site-packages/my_tf_broadcaster-0.0.0-py3.10.egg-info' (and everything under it)\n"}
+[0.853625] (my_tf_broadcaster) StdoutLine: {'line': b'Copying ../build/my_tf_broadcaster/my_tf_broadcaster.egg-info to /mujoco/src/install/my_tf_broadcaster/lib/python3.10/site-packages/my_tf_broadcaster-0.0.0-py3.10.egg-info\n'}
+[0.854612] (my_tf_broadcaster) StdoutLine: {'line': b'running install_scripts\n'}
+[0.875746] (my_tf_broadcaster) StdoutLine: {'line': b'Installing camera script to /mujoco/src/install/my_tf_broadcaster/lib/my_tf_broadcaster\n'}
+[0.875983] (my_tf_broadcaster) StdoutLine: {'line': b'Installing exp script to /mujoco/src/install/my_tf_broadcaster/lib/my_tf_broadcaster\n'}
+[0.876216] (my_tf_broadcaster) StdoutLine: {'line': b'Installing go script to /mujoco/src/install/my_tf_broadcaster/lib/my_tf_broadcaster\n'}
+[0.876369] (my_tf_broadcaster) StdoutLine: {'line': b'Installing test script to /mujoco/src/install/my_tf_broadcaster/lib/my_tf_broadcaster\n'}
+[0.876471] (my_tf_broadcaster) StdoutLine: {'line': b'Installing tf_broadcaster script to /mujoco/src/install/my_tf_broadcaster/lib/my_tf_broadcaster\n'}
+[0.876611] (my_tf_broadcaster) StdoutLine: {'line': b'Installing tf_grasp_listener script to /mujoco/src/install/my_tf_broadcaster/lib/my_tf_broadcaster\n'}
+[0.876859] (my_tf_broadcaster) StdoutLine: {'line': b"writing list of installed files to '/mujoco/src/build/my_tf_broadcaster/install.log'\n"}
+[0.899329] (my_tf_broadcaster) CommandEnded: {'returncode': 0}
+[0.901674] (-) TimerEvent: {}
+[0.907131] (my_tf_broadcaster) JobEnded: {'identifier': 'my_tf_broadcaster', 'rc': 0}
+[0.908023] (-) EventReactorShutdown: {}
