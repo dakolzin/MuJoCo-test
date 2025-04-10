@@ -1,0 +1,35 @@
+-- Found ament_cmake: 1.3.11 (/opt/ros/humble/share/ament_cmake/cmake)
+-- Found Python3: /usr/bin/python3 (found version "3.10.12") found components: Interpreter 
+-- Found ament_lint_auto: 0.12.11 (/opt/ros/humble/share/ament_lint_auto/cmake)
+-- Added test 'flake8' to check Python code syntax and style conventions
+-- Added test 'lint_cmake' to check CMake code style
+-- Added test 'pep257' to check Python code against some of the docstring style conventions in PEP 257
+-- Added test 'xmllint' to check XML markup files
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /mujoco/src/build/description
+-- Install configuration: ""
+-- Installing: /mujoco/src/install/description/share/description/launch
+-- Installing: /mujoco/src/install/description/share/description/launch/camera.launch.py
+-- Installing: /mujoco/src/install/description/share/description/launch/go.launch.py
+-- Installing: /mujoco/src/install/description/share/description/meshes
+-- Installing: /mujoco/src/install/description/share/description/meshes/box.stl
+-- Installing: /mujoco/src/install/description/share/description/urdf
+-- Installing: /mujoco/src/install/description/share/description/urdf/camera.urdf.xacro
+-- Installing: /mujoco/src/install/description/share/description/config
+-- Installing: /mujoco/src/install/description/share/description/config/rviz.rviz
+-- Installing: /mujoco/src/install/description/share/ament_index/resource_index/package_run_dependencies/description
+-- Installing: /mujoco/src/install/description/share/ament_index/resource_index/parent_prefix_path/description
+-- Installing: /mujoco/src/install/description/share/description/environment/ament_prefix_path.sh
+-- Installing: /mujoco/src/install/description/share/description/environment/ament_prefix_path.dsv
+-- Installing: /mujoco/src/install/description/share/description/environment/path.sh
+-- Installing: /mujoco/src/install/description/share/description/environment/path.dsv
+-- Installing: /mujoco/src/install/description/share/description/local_setup.bash
+-- Installing: /mujoco/src/install/description/share/description/local_setup.sh
+-- Installing: /mujoco/src/install/description/share/description/local_setup.zsh
+-- Installing: /mujoco/src/install/description/share/description/local_setup.dsv
+-- Installing: /mujoco/src/install/description/share/description/package.dsv
+-- Installing: /mujoco/src/install/description/share/ament_index/resource_index/packages/description
+-- Installing: /mujoco/src/install/description/share/description/cmake/descriptionConfig.cmake
+-- Installing: /mujoco/src/install/description/share/description/cmake/descriptionConfig-version.cmake
+-- Installing: /mujoco/src/install/description/share/description/package.xml

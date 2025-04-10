@@ -1,0 +1,9 @@
+/mujoco/src/build/description/CMakeFiles/uninstall.dir
+/mujoco/src/build/description/CMakeFiles/description_uninstall.dir
+/mujoco/src/build/description/CMakeFiles/test.dir
+/mujoco/src/build/description/CMakeFiles/edit_cache.dir
+/mujoco/src/build/description/CMakeFiles/rebuild_cache.dir
+/mujoco/src/build/description/CMakeFiles/list_install_components.dir
+/mujoco/src/build/description/CMakeFiles/install.dir
+/mujoco/src/build/description/CMakeFiles/install/local.dir
+/mujoco/src/build/description/CMakeFiles/install/strip.dir

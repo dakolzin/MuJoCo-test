@@ -1,0 +1,2 @@
+Invoking command in '/mujoco/src/build/description': /usr/bin/cmake /mujoco/src/description -DCMAKE_INSTALL_PREFIX=/mujoco/src/install/description
+Invoked command in '/mujoco/src/build/description' returned '1': /usr/bin/cmake /mujoco/src/description -DCMAKE_INSTALL_PREFIX=/mujoco/src/install/description

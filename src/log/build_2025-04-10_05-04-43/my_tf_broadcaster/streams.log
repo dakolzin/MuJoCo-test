@@ -1,0 +1,61 @@
+[0.572s] Invoking command in '/mujoco/src/my_tf_broadcaster': PYTHONPATH=/mujoco/src/build/my_tf_broadcaster/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/mujoco/src/install/my_tf_broadcaster/lib/python3.10/site-packages: /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../build/my_tf_broadcaster build --build-base /mujoco/src/build/my_tf_broadcaster/build install --record /mujoco/src/build/my_tf_broadcaster/install.log --single-version-externally-managed install_data
+[0.750s] running egg_info
+[0.751s] creating ../build/my_tf_broadcaster/my_tf_broadcaster.egg-info
+[0.751s] writing ../build/my_tf_broadcaster/my_tf_broadcaster.egg-info/PKG-INFO
+[0.751s] writing dependency_links to ../build/my_tf_broadcaster/my_tf_broadcaster.egg-info/dependency_links.txt
+[0.751s] writing entry points to ../build/my_tf_broadcaster/my_tf_broadcaster.egg-info/entry_points.txt
+[0.751s] writing requirements to ../build/my_tf_broadcaster/my_tf_broadcaster.egg-info/requires.txt
+[0.752s] writing top-level names to ../build/my_tf_broadcaster/my_tf_broadcaster.egg-info/top_level.txt
+[0.752s] writing manifest file '../build/my_tf_broadcaster/my_tf_broadcaster.egg-info/SOURCES.txt'
+[0.753s] reading manifest file '../build/my_tf_broadcaster/my_tf_broadcaster.egg-info/SOURCES.txt'
+[0.754s] writing manifest file '../build/my_tf_broadcaster/my_tf_broadcaster.egg-info/SOURCES.txt'
+[0.754s] running build
+[0.754s] running build_py
+[0.755s] creating /mujoco/src/build/my_tf_broadcaster/build
+[0.755s] creating /mujoco/src/build/my_tf_broadcaster/build/lib
+[0.755s] creating /mujoco/src/build/my_tf_broadcaster/build/lib/my_tf_broadcaster
+[0.755s] copying my_tf_broadcaster/tf_grasp_listener.py -> /mujoco/src/build/my_tf_broadcaster/build/lib/my_tf_broadcaster
+[0.755s] copying my_tf_broadcaster/exp.py -> /mujoco/src/build/my_tf_broadcaster/build/lib/my_tf_broadcaster
+[0.755s] copying my_tf_broadcaster/go.py -> /mujoco/src/build/my_tf_broadcaster/build/lib/my_tf_broadcaster
+[0.755s] copying my_tf_broadcaster/tf_broadcaster.py -> /mujoco/src/build/my_tf_broadcaster/build/lib/my_tf_broadcaster
+[0.755s] copying my_tf_broadcaster/__init__.py -> /mujoco/src/build/my_tf_broadcaster/build/lib/my_tf_broadcaster
+[0.755s] copying my_tf_broadcaster/camera.py -> /mujoco/src/build/my_tf_broadcaster/build/lib/my_tf_broadcaster
+[0.755s] copying my_tf_broadcaster/test.py -> /mujoco/src/build/my_tf_broadcaster/build/lib/my_tf_broadcaster
+[0.756s] running install
+[0.756s] running install_lib
+[0.757s] creating /mujoco/src/install/my_tf_broadcaster/lib/python3.10/site-packages/my_tf_broadcaster
+[0.757s] copying /mujoco/src/build/my_tf_broadcaster/build/lib/my_tf_broadcaster/tf_grasp_listener.py -> /mujoco/src/install/my_tf_broadcaster/lib/python3.10/site-packages/my_tf_broadcaster
+[0.757s] copying /mujoco/src/build/my_tf_broadcaster/build/lib/my_tf_broadcaster/exp.py -> /mujoco/src/install/my_tf_broadcaster/lib/python3.10/site-packages/my_tf_broadcaster
+[0.757s] copying /mujoco/src/build/my_tf_broadcaster/build/lib/my_tf_broadcaster/go.py -> /mujoco/src/install/my_tf_broadcaster/lib/python3.10/site-packages/my_tf_broadcaster
+[0.757s] copying /mujoco/src/build/my_tf_broadcaster/build/lib/my_tf_broadcaster/tf_broadcaster.py -> /mujoco/src/install/my_tf_broadcaster/lib/python3.10/site-packages/my_tf_broadcaster
+[0.757s] copying /mujoco/src/build/my_tf_broadcaster/build/lib/my_tf_broadcaster/__init__.py -> /mujoco/src/install/my_tf_broadcaster/lib/python3.10/site-packages/my_tf_broadcaster
+[0.758s] copying /mujoco/src/build/my_tf_broadcaster/build/lib/my_tf_broadcaster/camera.py -> /mujoco/src/install/my_tf_broadcaster/lib/python3.10/site-packages/my_tf_broadcaster
+[0.758s] copying /mujoco/src/build/my_tf_broadcaster/build/lib/my_tf_broadcaster/test.py -> /mujoco/src/install/my_tf_broadcaster/lib/python3.10/site-packages/my_tf_broadcaster
+[0.758s] byte-compiling /mujoco/src/install/my_tf_broadcaster/lib/python3.10/site-packages/my_tf_broadcaster/tf_grasp_listener.py to tf_grasp_listener.cpython-310.pyc
+[0.760s] byte-compiling /mujoco/src/install/my_tf_broadcaster/lib/python3.10/site-packages/my_tf_broadcaster/exp.py to exp.cpython-310.pyc
+[0.762s] byte-compiling /mujoco/src/install/my_tf_broadcaster/lib/python3.10/site-packages/my_tf_broadcaster/go.py to go.cpython-310.pyc
+[0.764s] byte-compiling /mujoco/src/install/my_tf_broadcaster/lib/python3.10/site-packages/my_tf_broadcaster/tf_broadcaster.py to tf_broadcaster.cpython-310.pyc
+[0.766s] byte-compiling /mujoco/src/install/my_tf_broadcaster/lib/python3.10/site-packages/my_tf_broadcaster/__init__.py to __init__.cpython-310.pyc
+[0.766s] byte-compiling /mujoco/src/install/my_tf_broadcaster/lib/python3.10/site-packages/my_tf_broadcaster/camera.py to camera.cpython-310.pyc
+[0.767s] byte-compiling /mujoco/src/install/my_tf_broadcaster/lib/python3.10/site-packages/my_tf_broadcaster/test.py to test.cpython-310.pyc
+[0.769s] running install_data
+[0.769s] creating /mujoco/src/install/my_tf_broadcaster/share/ament_index
+[0.769s] creating /mujoco/src/install/my_tf_broadcaster/share/ament_index/resource_index
+[0.769s] creating /mujoco/src/install/my_tf_broadcaster/share/ament_index/resource_index/packages
+[0.769s] copying resource/my_tf_broadcaster -> /mujoco/src/install/my_tf_broadcaster/share/ament_index/resource_index/packages
+[0.770s] copying package.xml -> /mujoco/src/install/my_tf_broadcaster/share/my_tf_broadcaster
+[0.770s] creating /mujoco/src/install/my_tf_broadcaster/share/my_tf_broadcaster/config
+[0.770s] copying config/config.rviz -> /mujoco/src/install/my_tf_broadcaster/share/my_tf_broadcaster/config
+[0.770s] creating /mujoco/src/install/my_tf_broadcaster/share/my_tf_broadcaster/launch
+[0.770s] copying launch/view.launch.py -> /mujoco/src/install/my_tf_broadcaster/share/my_tf_broadcaster/launch
+[0.770s] creating /mujoco/src/install/my_tf_broadcaster/share/my_tf_broadcaster/saved_data
+[0.770s] running install_egg_info
+[0.772s] Copying ../build/my_tf_broadcaster/my_tf_broadcaster.egg-info to /mujoco/src/install/my_tf_broadcaster/lib/python3.10/site-packages/my_tf_broadcaster-0.0.0-py3.10.egg-info
+[0.773s] running install_scripts
+[0.794s] Installing camera script to /mujoco/src/install/my_tf_broadcaster/lib/my_tf_broadcaster
+[0.795s] Installing exp script to /mujoco/src/install/my_tf_broadcaster/lib/my_tf_broadcaster
+[0.796s] Installing go script to /mujoco/src/install/my_tf_broadcaster/lib/my_tf_broadcaster
+[0.796s] Installing test script to /mujoco/src/install/my_tf_broadcaster/lib/my_tf_broadcaster
+[0.796s] Installing tf_broadcaster script to /mujoco/src/install/my_tf_broadcaster/lib/my_tf_broadcaster
+[0.797s] Installing tf_grasp_listener script to /mujoco/src/install/my_tf_broadcaster/lib/my_tf_broadcaster
+[0.797s] writing list of installed files to '/mujoco/src/build/my_tf_broadcaster/install.log'

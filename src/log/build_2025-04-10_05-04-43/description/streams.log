@@ -1,0 +1,33 @@
+[0.018s] Invoking command in '/mujoco/src/build/description': /usr/bin/cmake /mujoco/src/description -DCMAKE_INSTALL_PREFIX=/mujoco/src/install/description
+[0.222s] -- The C compiler identification is GNU 11.4.0
+[0.357s] -- The CXX compiler identification is GNU 11.4.0
+[0.380s] -- Detecting C compiler ABI info
+[0.497s] -- Detecting C compiler ABI info - done
+[0.506s] -- Check for working C compiler: /usr/bin/cc - skipped
+[0.506s] -- Detecting C compile features
+[0.507s] -- Detecting C compile features - done
+[0.511s] -- Detecting CXX compiler ABI info
+[0.603s] -- Detecting CXX compiler ABI info - done
+[0.611s] -- Check for working CXX compiler: /usr/bin/c++ - skipped
+[0.611s] -- Detecting CXX compile features
+[0.612s] -- Detecting CXX compile features - done
+[0.630s] [31mCMake Error at CMakeLists.txt:9 (find_package):
+[0.630s]   By not providing "Findament_cmake.cmake" in CMAKE_MODULE_PATH this project
+[0.630s]   has asked CMake to find a package configuration file provided by
+[0.630s]   "ament_cmake", but CMake did not find one.
+[0.630s] 
+[0.630s]   Could not find a package configuration file provided by "ament_cmake" with
+[0.630s]   any of the following names:
+[0.630s] 
+[0.630s]     ament_cmakeConfig.cmake
+[0.630s]     ament_cmake-config.cmake
+[0.630s] 
+[0.630s]   Add the installation prefix of "ament_cmake" to CMAKE_PREFIX_PATH or set
+[0.630s]   "ament_cmake_DIR" to a directory containing one of the above files.  If
+[0.630s]   "ament_cmake" provides a separate development package or SDK, be sure it
+[0.631s]   has been installed.
+[0.631s] 
+[0.631s] [0m
+[0.631s] -- Configuring incomplete, errors occurred!
+[0.631s] See also "/mujoco/src/build/description/CMakeFiles/CMakeOutput.log".
+[0.634s] Invoked command in '/mujoco/src/build/description' returned '1': /usr/bin/cmake /mujoco/src/description -DCMAKE_INSTALL_PREFIX=/mujoco/src/install/description
