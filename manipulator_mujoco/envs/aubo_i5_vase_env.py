@@ -75,7 +75,7 @@ class AuboI5EnvVase(gym.Env):
 
         # ===== Добавляем объект =====
         self._diff = VASE()
-        self._arena.attach_free(self._diff.mjcf_model, pos=[0.47, 0.28, 0.505], quat=[0.7071067811865476, 0.0, 0.7071067811865475, 0.0])
+        self._arena.attach_free(self._diff.mjcf_model, pos=[0.48, 0.29, 0.505], quat=[0.7071067811865476, 0.0, 0.7071067811865475, 0.0])
 
         # ============================
 

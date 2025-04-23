@@ -96,7 +96,7 @@ class TfBroadcasterOffline(Node):
             self.get_logger().error(f"Папка '{folder}' не существует!")
             return all_files
         for fname in os.listdir(folder):
-            if fname.startswith("grasp_data_000001") and fname.endswith(".json"):
+            if fname.startswith("grasp_data_000002") and fname.endswith(".json"):
                 all_files.append(os.path.join(folder, fname))
         all_files.sort()
         return all_files
@@ -234,15 +234,15 @@ def main(args=None):
         description="TF Broadcaster Offline с выбором директории JSON файла")
     group = parser.add_mutually_exclusive_group()
     group.add_argument('--diff', action='store_true',
-                       help="Использовать директорию saved_data/graspnet/diff")
+                       help="Использовать директорию saved_data/sbg/diff")
     group.add_argument('--vase', action='store_true',
-                       help="Использовать директорию saved_data/graspnet/vase")
+                       help="Использовать директорию saved_data/sbg/vase")
     parsed_args, unknown = parser.parse_known_args()
 
     if parsed_args.diff:
-        json_dir = "my_tf_broadcaster/saved_data/graspnet/diff"
+        json_dir = "my_tf_broadcaster/saved_data/sbg/diff"
     elif parsed_args.vase:
-        json_dir = "my_tf_broadcaster/saved_data/graspnet/vase"
+        json_dir = "my_tf_broadcaster/saved_data/sbg/vase"
     else:
         json_dir = "my_tf_broadcaster/my_tf_broadcaster"
 

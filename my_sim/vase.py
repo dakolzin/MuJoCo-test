@@ -1,270 +1,150 @@
 #!/usr/bin/env python3
-import time
-import threading
-import argparse
-import socket
-import json
-import queue
+import time, threading, argparse, socket, json, queue, sys, signal
+import gymnasium, manipulator_mujoco, mujoco
+from transform_utils import quaternion_to_rotation_matrix
 
-import gymnasium
-import manipulator_mujoco
-import mujoco  # для mj_name2id
+# ------------------- метрики -------------------
+M = {"Всего": 0, "Захвачено": 0, "Поднято": 0, "Удержено": 0}
+def pct(k): return 100.0*M[k]/M["Всего"] if M["Всего"] else 0.0
+def summary(fin=False):
+    if not M["Всего"]: return
+    tag = "ИТОГО" if fin else "СТАТ"
+    print(f"\n[{tag}] N={M['Всего']} | Захвачено={pct('Захвачено'):.1f}% | "
+          f"Поднято={pct('Поднято'):.1f}% | Удержено={pct('Удержено'):.1f}%\n")
 
-from transform_utils import quaternion_to_rotation_matrix  # для проверки
+# ------------------- пороги --------------------
+OPEN, CLOSED            = 0.0, 0.943
+CLOSE_FORCE_LIMIT       = 600.0      # защитный остановка при закрытии
+CAPTURE_THRESHOLD       = 100.0       # ≥ — «захвачен»
+HOLD_THRESHOLD          = 80.0        # ≥ — «удержан» в конце
+LIFT_VALIDATION_WINDOW  = 1.2         # сек
+MIN_SAMPLES_ABOVE       = 60           # сколько выборок ≥ CAPTURE_THRESHOLD нужно
 
-def simulation_loop(ip, port):
-    """
-    Основной цикл симуляции манипулятора:
-    - Слушаем сокет в отдельном потоке, разбиваем входящие данные по \n.
-    - Каждую полную JSON-строку парсим и кладём в очередь transform_queue.
-    - В главном потоке блокируемся на transform_queue.get() -> запускаем state machine.
-    - По окончании state machine (done) снова ждём следующего transform.
-    """
-    env = gymnasium.make("manipulator_mujoco/AuboI5EnvVase-v0", render_mode='human')
-    unwrapped_env = env.unwrapped
+def sim_loop(ip, port):
+    env  = gymnasium.make("manipulator_mujoco/AuboI5EnvVase-v0", render_mode="human")
+    phys = env.unwrapped._physics
+    q    = queue.Queue()
 
-    transform_queue = queue.Queue()
-
-    def socket_worker():
-        HOST = ip
-        PORT = port
-        with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+    # ---------- socket ----------
+    def sock():
+        with socket.socket() as s:
             s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-            s.bind((HOST, PORT))
-            s.listen(1)
-            print(f"[Socket] Ожидание подключения на {HOST}:{PORT}...")
-            conn, addr = s.accept()
-            print(f"[Socket] Подключено: {addr}")
-
-            buffer = ""
+            s.bind((ip, port)); s.listen(1)
+            print(f"[Socket] ждём {ip}:{port}…")
+            c, _ = s.accept(); print("[Socket] подключено.")
+            buf=""
             while True:
-                chunk = conn.recv(4096)
-                if not chunk:
-                    print("[Socket] Клиент закрыл соединение. Завершаем socket_worker().")
-                    break
-                buffer += chunk.decode('utf-8')
+                ch=c.recv(4096)
+                if not ch: break
+                buf+=ch.decode()
+                while "\n" in buf:
+                    ln, buf = buf.split("\n",1)
+                    try: q.put(json.loads(ln.strip()))
+                    except json.JSONDecodeError: print("[Socket] bad JSON", ln.strip())
+    threading.Thread(target=sock, daemon=True).start()
 
-                # Разбиваем по переносу строки
-                while "\n" in buffer:
-                    line, buffer = buffer.split("\n", 1)
-                    line = line.strip()
-                    if not line:
-                        continue
-                    try:
-                        transform = json.loads(line)
-                        print("[Socket] Принят JSON:", transform)
-                        transform_queue.put(transform)
-                    except json.JSONDecodeError as e:
-                        print("[Socket] Невалидный JSON:", line, e)
+    # ---------- ids ----------
+    gid = mujoco.mj_name2id(phys.model.ptr, mujoco.mjtObj.mjOBJ_ACTUATOR, "fingers_actuator")
+    lid = mujoco.mj_name2id(phys.model.ptr, mujoco.mjtObj.mjOBJ_SENSOR,   "left_finger_force")
+    rid = mujoco.mj_name2id(phys.model.ptr, mujoco.mjtObj.mjOBJ_SENSOR,   "right_finger_force")
 
-    sock_thread = threading.Thread(target=socket_worker, daemon=True)
-    sock_thread.start()
+    # ---------- FSM ----------
+    def run(tr):
+        env.reset(seed=42)
+        state="random"
+        pre_t=fin_t=lift_t=None
+        grip=OPEN
+        closing=False; close_t=None
+        captured=False; lift_confirmed=False; held=False
+        last_log=0
 
-    # ------------ Параметры -------------
-    gripper_actuator_name = 'fingers_actuator'
-    left_force_sensor_name = "left_finger_force"
-    right_force_sensor_name = "right_finger_force"
-
-    def init_env():
-        observation, info = env.reset(seed=42)
-        print("Action space:", env.action_space)
-
-        gripper_idx = mujoco.mj_name2id(
-            unwrapped_env._physics.model.ptr,
-            mujoco.mjtObj.mjOBJ_ACTUATOR,
-            gripper_actuator_name
-        )
-        left_sensor_id = mujoco.mj_name2id(
-            unwrapped_env._physics.model.ptr,
-            mujoco.mjtObj.mjOBJ_SENSOR,
-            left_force_sensor_name
-        )
-        right_sensor_id = mujoco.mj_name2id(
-            unwrapped_env._physics.model.ptr,
-            mujoco.mjtObj.mjOBJ_SENSOR,
-            right_force_sensor_name
-        )
-        return gripper_idx, left_sensor_id, right_sensor_id
-
-    open_command = 0.0
-    closed_command = 0.943
-    FORCE_THRESHOLD = 1200.0
-
-    def run_state_machine(transform):
-        """Запускаем цикл random->pre_grasp->final_grasp->lift->done для данного transform."""
-        gripper_closed = False
-        closing_in_progress = False
-        closing_start_time = None
-        closing_duration = 3.0
-        current_gripper_value = open_command
-
-        final_grasp_capture_time = None
-
-        state = "random"
-        pre_grasp_start_time = None
-        final_grasp_start_time = None
-        lift_start_time = None
-        lift_done = False
-        translation_base = None
-        quaternion_base = None
-
-        # Сбрасываем мир:
-        gripper_index, left_sensor_id, right_sensor_id = init_env()
-
-        print("\n=== Начинается новый прогон state machine ===")
+        # — для проверки устойчивого подъёма —
+        lift_samples_tot = 0
+        lift_samples_above = 0
 
         while True:
-            # 1) Управление схватом (гладкое закрытие)
-            if closing_in_progress:
-                elapsed = time.time() - closing_start_time
-                alpha = min(1.0, elapsed / closing_duration)
-                current_gripper_value = open_command + alpha * (closed_command - open_command)
-                unwrapped_env._physics.data.ctrl[gripper_index] = current_gripper_value
+            force = phys.data.sensordata[lid]+phys.data.sensordata[rid]
 
-                left_force = unwrapped_env._physics.data.sensordata[left_sensor_id]
-                right_force = unwrapped_env._physics.data.sensordata[right_sensor_id]
-                total_force = left_force + right_force
+            # ---- управление схватом ----
+            if closing:
+                a=min(1.0,(time.time()-close_t)/3.0)
+                grip=OPEN+a*(CLOSED-OPEN)
+                if force>=CLOSE_FORCE_LIMIT or a>=1.0:
+                    closing=False
+            phys.data.ctrl[gid]=grip
 
-                if total_force >= FORCE_THRESHOLD:
-                    print(f"[Gripper] Превышен порог {FORCE_THRESHOLD}. Останавливаемся.")
-                    closing_in_progress = False
-                    gripper_closed = True
-                elif alpha >= 1.0:
-                    print("[Gripper] Закрытие завершено по времени")
-                    closing_in_progress = False
-                    gripper_closed = True
-            else:
-                unwrapped_env._physics.data.ctrl[gripper_index] = current_gripper_value
+            # ---- лог каждые 0.5 с ----
+            if time.time()-last_log>=.2:
+                print(f"[{state:^11}] F={force:7.1f} N  grip={grip:.3f}")
+                last_log=time.time()
 
-            # 2) Логика состояний
-            if state == "random":
-                action = env.action_space.sample()
-                observation, reward, terminated, truncated, info = env.step(action)
-                # -- Выводим в консоль текущую позу MOCAP
-                print_mocap_pose(unwrapped_env)
+            # ---- переходы ----
+            if state=="random":
+                env.step(env.action_space.sample())
+                if tr:
+                    safe=[tr["translation"][0],tr["translation"][1],tr["translation"][2]+.3]
+                    env.unwrapped._target.set_mocap_pose(phys, position=safe, quaternion=tr["rotation"])
+                    pre_t=time.time(); state="pre_grasp"; print("[-> pre_grasp]")
 
-                if not closing_in_progress and not gripper_closed:
-                    current_gripper_value = open_command
+            elif state=="pre_grasp":
+                env.step([0]*env.action_space.shape[0])
+                if time.time()-pre_t>=10:
+                    env.unwrapped._target.set_mocap_pose(phys, position=tr["translation"], quaternion=tr["rotation"])
+                    fin_t=time.time(); state="final_grasp"; print("[-> final_grasp]")
 
-                if transform is not None:
-                    translation_base = transform.get("translation")
-                    quaternion_base = transform.get("rotation")
-                    safe_offset = [0,0,0.1]
-                    pre_grasp_translation = [
-                        translation_base[0]+safe_offset[0],
-                        translation_base[1]+safe_offset[1],
-                        translation_base[2]+safe_offset[2]
-                    ]
-                    print("[State] Переход -> pre_grasp")
-                    if hasattr(env.unwrapped, "_target") and hasattr(env.unwrapped, "_physics"):
-                        env.unwrapped._target.set_mocap_pose(
-                            physics=env.unwrapped._physics,
-                            position=pre_grasp_translation,
-                            quaternion=quaternion_base
-                        )
-                    pre_grasp_start_time = time.time()
-                    state = "pre_grasp"
+            elif state=="final_grasp":
+                env.step(env.action_space.sample())
+                if not closing and time.time()-fin_t>=3.0 and grip<CLOSED*.95:
+                    closing=True; close_t=time.time(); print("[Gripper] closing")
+                # --- захват ---
+                if not captured and grip>=CLOSED*.95 and force>=CAPTURE_THRESHOLD:
+                    captured=True; print(f"[Metric] Захвачено ✓  F={force:.1f}")
+                # после 5 с пробуем подъём
+                if grip>=CLOSED*.95 and time.time()-fin_t>=5.0:
+                    lift_t=time.time(); state="lift"; print("[-> Поднято]")
 
-            elif state == "pre_grasp":
-                no_op = [0]*env.action_space.shape[0]
-                observation, reward, terminated, truncated, info = env.step(no_op)
-                # -- Выводим в консоль текущую позу MOCAP
-                print_mocap_pose(unwrapped_env)
+            elif state=="lift":
+                env.step(env.action_space.sample())
+                # задаём цель только вначале
+                if time.time()-lift_t<.1:
+                    p=tr["translation"]; env.unwrapped._target.set_mocap_pose(
+                        phys, position=[p[0],p[1],p[2]+.4], quaternion=tr["rotation"])
+                # собираем статистику силы
+                if time.time()-lift_t <= LIFT_VALIDATION_WINDOW:
+                    lift_samples_tot   += 1
+                    if force >= CAPTURE_THRESHOLD:
+                        lift_samples_above += 1
+                elif not lift_confirmed:
+                    # переход завершился: решаем, засчитан ли подъём
+                    lift_confirmed = lift_samples_above >= MIN_SAMPLES_ABOVE
+                    print(f"[Metric] Поднято {'✓' if lift_confirmed else '✗'}  "
+                          f"above={lift_samples_above}/{lift_samples_tot}")
+                # по таймеру -> done
+                if time.time()-lift_t>5.0:
+                    state="done"; print("[-> done]")
 
-                if not closing_in_progress and not gripper_closed:
-                    current_gripper_value = open_command
+            elif state=="done":
+                env.step([0]*env.action_space.shape[0])
+                held = captured and lift_confirmed and force>=HOLD_THRESHOLD
+                print(f"[DONE] F_end={force:.1f} N  held={held}")
+                return captured, lift_confirmed, held
 
-                if time.time()-pre_grasp_start_time >= 10.0:
-                    print("[State] Переход -> final_grasp")
-                    if hasattr(env.unwrapped, "_target") and hasattr(env.unwrapped, "_physics"):
-                        env.unwrapped._target.set_mocap_pose(
-                            physics=env.unwrapped._physics,
-                            position=translation_base,
-                            quaternion=quaternion_base
-                        )
-                        rot_check = quaternion_to_rotation_matrix(quaternion_base)
-                        print("[State] Восстановленная матрица вращения:\n", rot_check)
-                    final_grasp_start_time = time.time()
-                    state = "final_grasp"
+    # ---------- Ctrl‑C ----------
+    signal.signal(signal.SIGINT, lambda *_: (summary(True), env.close(), sys.exit(0)))
 
-            elif state == "final_grasp":
-                action = env.action_space.sample()
-                observation, reward, terminated, truncated, info = env.step(action)
-                # -- Выводим в консоль текущую позу MOCAP
-                print_mocap_pose(unwrapped_env)
-
-                if final_grasp_start_time and (time.time()-final_grasp_start_time >= 3.0):
-                    if not gripper_closed and not closing_in_progress:
-                        print("[State] Начинаем закрытие схвата.")
-                        closing_in_progress = True
-                        closing_start_time = time.time()
-                if gripper_closed:
-                    if final_grasp_capture_time is None:
-                        final_grasp_capture_time = time.time()
-                    if time.time()-final_grasp_capture_time >= 2.0:
-                        print("[State] Переход -> lift")
-                        lift_start_time = time.time()
-                        state = "lift"
-
-            elif state == "lift":
-                action = env.action_space.sample()
-                observation, reward, terminated, truncated, info = env.step(action)
-                # -- Выводим в консоль текущую позу MOCAP
-                print_mocap_pose(unwrapped_env)
-
-                if not lift_done:
-                    lift_offset = [0,0,0.4]
-                    lift_translation = [
-                        translation_base[0] + lift_offset[0],
-                        translation_base[1] + lift_offset[1],
-                        translation_base[2] + lift_offset[2]
-                    ]
-                    print("[State] Подъём, target=", lift_translation)
-                    if hasattr(env.unwrapped, "_target") and hasattr(env.unwrapped, "_physics"):
-                        env.unwrapped._target.set_mocap_pose(
-                            physics=env.unwrapped._physics,
-                            position=lift_translation,
-                            quaternion=quaternion_base
-                        )
-                    lift_done = True
-                else:
-                    if time.time()-lift_start_time > 5.0:
-                        print("[State] Подъём завершен -> done")
-                        state = "done"
-
-            elif state == "done":
-                no_op = [0]*env.action_space.shape[0]
-                observation, reward, terminated, truncated, info = env.step(no_op)
-                # -- Выводим в консоль текущую позу MOCAP
-                print_mocap_pose(unwrapped_env)
-
-                print("[State] Прогон завершен, ждем следующую трансформацию.")
-                break
-
-    # Вспомогательная функция, которая печатает текущий mocap-позу
-    def print_mocap_pose(env_unwrapped):
-        if hasattr(env_unwrapped, "_target") and hasattr(env_unwrapped, "_physics"):
-            pose = env_unwrapped._target.get_mocap_pose(env_unwrapped._physics)
-            # pose это массив из 7 чисел: [px, py, pz, qx, qy, qz, qw]
-            pos = pose[:3]
-            quat = pose[3:]
-            #print(f"[MocapPose] pos={pos}, quat={quat}")
-
-    # Главный цикл: ждём трансформы -> run_state_machine() -> снова ждём
-    print("[Main] Готов к получению трансформаций.")
+    print("[Main] ждём пересчета.")
     while True:
-        transform = transform_queue.get()  # блокирующий
-        if transform is None:
-            print("[Main] Получен None, завершаем.")
-            break
-        run_state_machine(transform)
+        tr=q.get()
+        if tr is None: break
+        c,l,h=run(tr)
+        M["Всего"]+=1
+        M["Захвачено"]+=c
+        M["Поднято"]   += (c and l)
+        M["Удержено"]   += h
+        summary()
 
-    env.close()
+    summary(True); env.close()
 
-if __name__ == "__main__":
-    parser = argparse.ArgumentParser()
-    parser.add_argument('--ip', type=str, default='127.0.0.1', help='IP для сокета')
-    parser.add_argument('--port', type=int, default=54321, help='Порт для сокета')
-    args = parser.parse_args()
-
-    simulation_loop(args.ip, args.port)
+if __name__=="__main__":
+    p=argparse.ArgumentParser(); p.add_argument("--ip",default="127.0.0.1"); p.add_argument("--port",type=int,default=54321)
+    a=p.parse_args(); sim_loop(a.ip,a.port)

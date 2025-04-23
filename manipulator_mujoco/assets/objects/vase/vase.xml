@@ -22,7 +22,7 @@
   </asset>
   <worldbody>
     <body name="vase_body" childclass="vase" pos="0 0 0">
-      <inertial pos="0 0 0" mass="5" diaginertia="0.0016915952363007758 0.0016487379181862394 0.0012223141205998892"/>
+      <inertial pos="0 0 0" mass="1" diaginertia="0.0016915952363007758 0.0016487379181862394 0.0012223141205998892"/>
       <geom mesh="vase_mesh" material="vase_material" class="visual"/>
       <geom mesh="vase_mesh" material="vase_material" class="collision"/>
     </body>
